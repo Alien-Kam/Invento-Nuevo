@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;   
 
-public class Players : MonoBehaviour
+public class Cartas : MonoBehaviour
 {
-    public string name;
+    public List<GameObject> cartas;
     // Start is called before the first frame update
     void Start()
     {

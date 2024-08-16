@@ -3,12 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Primera Faccion
+  - Segunda Faccion
+  - Asedio
+  - LargaDistancia
+  - Cuerpo a Cuerpo
+  - Clima
+  - Aumento
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Texto
   - Water
   - UI
   - 

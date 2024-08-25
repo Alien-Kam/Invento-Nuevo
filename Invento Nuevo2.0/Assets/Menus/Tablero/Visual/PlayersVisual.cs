@@ -5,10 +5,10 @@ using Logica;
 
 public class PlayersVisual : MonoBehaviour
 {
-  public string nameplayer;
-  public int faccionplayer;
-  public int puntos;
-  public void CreandoJugadores(string nombre, int faccion, int puntos)
+  private string nameplayer;
+  private string faccionplayer;
+  private int puntos;
+  public void CreandoJugadores(string nombre, string faccion, int puntos)
   {
     nameplayer = nombre;
     faccionplayer = faccion;

@@ -16,7 +16,10 @@ public class ContinuarPanelFacciones : MonoBehaviour
    public TMP_Dropdown player2drop;
    public GameObject deck1;
    public GameObject deck2;
-   // Este metodo coge los nombres y la facciones de los jugadores y los instancia
+   public GameObject player1;
+   public GameObject player2;
+   
+   // Este metodo prepara las cosas iniciales para el juego osea crea los directorios de las cartas instasncia los jugadores y coge las facciones
    public void Continuar()
    {
       string nameplayer1 = intputplayer1.textComponent.text;
@@ -25,26 +28,33 @@ public class ContinuarPanelFacciones : MonoBehaviour
       string faccionName1 = player1drop.captionText.text;
       string faccionName2 = player1drop.captionText.text;
 
-      Player player1 = new Player(nameplayer1, faccionName1);
-      Player player2 = new Player(nameplayer2, faccionName2);
+      player1.GetComponent<PlayersVisual>().nameplayer = nameplayer1;
+      player1.GetComponent<PlayersVisual>().faccionplayer = faccionName1;
+      player2.GetComponent<PlayersVisual>().nameplayer =nameplayer2;
+      player2.GetComponent<PlayersVisual>().faccionplayer= faccionName2;
       
 
-      DirectoryInfo directory1 = Directory.CreateDirectory(Path.GetDirectoryName($"storage/{faccionName1}"));
-      DirectoryInfo directory2 = Directory.CreateDirectory(Path.GetDirectoryName($"storage/{faccionName2}"));
+      DirectoryInfo directory1 = Directory.CreateDirectory(Path.GetDirectoryName($"Assets/Prefabs Cartas/{faccionName1}"));
+      DirectoryInfo directory2 = Directory.CreateDirectory(Path.GetDirectoryName($"Assets/Prefabs Cartas/{faccionName2}"));
 
       List<GameObject> cartsFaccion1 = LoadFaccionCarts(directory1).ToList();
       List<GameObject> cartsFaccion2 = LoadFaccionCarts(directory2).ToList();
 
-      deck1.GetComponent<DistribuirCartas>().Deck(cartsFaccion1);
-      deck2.GetComponent<DistribuirCartas>().Deck(cartsFaccion2);
+      //deck1.GetComponent<DistribuirCartas>().Deck(cartsFaccion1);
+      //deck2.GetComponent<DistribuirCartas>().Deck(cartsFaccion2);
 
       Scene newScene = SceneManager.GetSceneAt(2);
+      SceneManager.MoveGameObjectToScene(player1, newScene);
+      SceneManager.MoveGameObjectToScene(player2, newScene);
       SceneManager.MoveGameObjectToScene(deck1, newScene);
       SceneManager.MoveGameObjectToScene(deck2, newScene);
-      SceneManager.LoadScene(newScene.name);
+
+      // Es el indice de la escena en Build Settings
+      SceneManager.LoadScene(newScene.buildIndex);
    }
 
    // ES EL TC
+   //Este carga las cartas del directorio 
    public IEnumerable<GameObject> LoadFaccionCarts(DirectoryInfo directoryActual)
    {
       foreach (FileInfo file in directoryActual.GetFiles())

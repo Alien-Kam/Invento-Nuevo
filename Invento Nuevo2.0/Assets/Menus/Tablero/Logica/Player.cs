@@ -8,10 +8,14 @@ namespace Logica
     {
         public string nombreplayer;
         public string faccion;
+        public int puntos;
+        public int puntosronda;
         public Player(string name, string faccion)
         {
             nombreplayer = name;
             this.faccion = faccion;
+            puntos = 0;
+            puntosronda = 0;
         }
     }
 }

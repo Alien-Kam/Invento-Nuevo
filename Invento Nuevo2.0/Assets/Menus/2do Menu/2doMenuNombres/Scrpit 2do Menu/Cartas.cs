@@ -26,7 +26,7 @@ public class Cartas : MonoBehaviour
         CrearCarta();
     }
 
-    BaseCard CrearCarta()
+    public BaseCard CrearCarta()
     {
 
         switch (tipoCarta)

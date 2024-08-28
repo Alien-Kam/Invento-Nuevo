@@ -2,32 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using Logica;
+using Unity.VisualScripting;
 
 public class DistribuirCartas : MonoBehaviour
 {
-   public List<GameObject> hand;
-   public Transform canvasTransform;
+   Rondas rondas = new Rondas();
+   Transform posiciones;
+   GameObject mano;
+   public List<BaseCard> hand;
+   public void Start()
+   {
+      mano = GameObject.Find("Cartas");
+      posiciones = GameObject.Find("Posiciones de las cartas").transform;
+   }
    public void Deck(List<GameObject> mazo)
    {
-      for (int i = 0; i < 10; i++)
+      List<BaseCard> deck = new List<BaseCard>();
+      for (int i = 0; i < mazo.Count; i++)
       {
-         GameObject card = mazo[Random.Range(0, mazo.Count)];
-         hand.Add(card);
-         mazo.Remove(card);
+         deck.Add(mazo[i].GetComponent<Cartas>().CrearCarta());
       }
-
-      Transform posiciones = transform.Find("PositionCards");
-      InstanciarCartas(hand, posiciones);
+      hand = rondas.InicioRonda(deck);
    }
-   void InstanciarCartas(List<GameObject> hand, Transform posiciones)
+   public void InstanciaCarta()
    {
-      for (int i = 0; i < hand.Count; i++)
-      {
-         Transform posicion = posiciones.GetChild(i);
-
-         GameObject nuevaInstancia = Instantiate(hand[i].gameObject, posicion.position, Quaternion.identity, canvasTransform);
-         nuevaInstancia.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-         nuevaInstancia.AddComponent<CanvasGroup>();
-      }
+     for(int i = 0; i < hand.Count; i++)
+     {
+       GameObject instancia = GameObject.Find($"{hand[i].namecard}");
+       Transform pos = posiciones.GetChild(i);
+       GameObject nuevaInstacia = Instantiate(instancia, pos.position, Quaternion.identity, mano.transform );
+       nuevaInstacia.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+     }   
    }
 }

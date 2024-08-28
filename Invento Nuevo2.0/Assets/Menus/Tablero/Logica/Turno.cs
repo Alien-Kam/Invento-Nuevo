@@ -7,7 +7,7 @@ public class Turno
 {
   public List<Player> players = new List<Player>();
   int current = 0;
-  int cantpas = 0;
+  int jugadorespas = 0;
   public  bool pasarTurno = false;
   public bool cartamovid = false;
   public bool habLider = false;
@@ -30,7 +30,7 @@ public class Turno
     if(pasarTurno )
     {
       pasados[current] = true;
-      cantpas ++;
+      jugadorespas ++;
     }
     current = (current + 1) % players.Count;
   }

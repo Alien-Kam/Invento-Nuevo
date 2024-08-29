@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Logica;
 using System.Linq;
 
 /* Al inicio de cada ronda las cartas son distribuidas
@@ -10,7 +9,10 @@ using System.Linq;
  4 - Se decide quien es el ganador de la ronda segun la cantidad de puntos que tenga ese jugador
  5 - 2 rondas ganadas deciden un ganador del juego 
  6 - En caso de empate se le da un punto de ronda a cada jugador*/
-public class Rondas
+ 
+ namespace Logica
+ {
+    public class Rondas
 {
 
     // Inicio de Ronda
@@ -18,7 +20,7 @@ public class Rondas
     {
         List<BaseCard> mano = new List<BaseCard>();
 
-        for (int i = 0; i < deck.Count; i++)
+        for (int i = 0; i < 10; i++)
         {
             BaseCard card = deck[Random.Range(0, deck.Count)];
             mano.Add(card);
@@ -78,3 +80,5 @@ public class Rondas
       }
     }
 }
+ }
+

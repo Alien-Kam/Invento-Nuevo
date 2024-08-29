@@ -7285,6 +7285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1973845345}
+  - component: {fileID: 1973845346}
   m_Layer: 0
   m_Name: Deck 2
   m_TagString: Untagged
@@ -7307,6 +7308,19 @@ Transform:
   m_Father: {fileID: 1497660526}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973845346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973845344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a72334b68e17f4480004a63efb6e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: []
 --- !u!1 &1975738305
 GameObject:
   m_ObjectHideFlags: 0
@@ -7917,6 +7931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2104513512}
+  - component: {fileID: 2104513513}
   m_Layer: 0
   m_Name: Deck 1
   m_TagString: Untagged
@@ -7939,6 +7954,19 @@ Transform:
   m_Father: {fileID: 68335425}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2104513513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104513511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a72334b68e17f4480004a63efb6e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: []
 --- !u!1 &2135803104
 GameObject:
   m_ObjectHideFlags: 0

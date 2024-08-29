@@ -1,19 +1,22 @@
-
 using System.Collections;
 using System.Collections.Generic;
-using Logica;
 using UnityEngine;
+using Logica;
 
-public class ControladorDeJuego : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-
     List<GameObject> players;
     List<Player> playerlog;
-    public void Awake()
+    List<GameObject> mano1;
+    List<GameObject> mano2;
+    public Transform canvasTransform;
+     void Awake()
     {
         GameObject deck1 = GameObject.Find("Deck 1");
         GameObject deck2 = GameObject.Find("Deck 2");
-
+        // Esto puede que no funcione 
+        deck1.transform.position = new Vector3(436f, -294.7f, 0);
+        deck2.transform.position = new Vector3(436.6f, 289.3f, 0);
         GameObject player1 = GameObject.Find("player1");
         GameObject player2 = GameObject.Find("player2");
 
@@ -38,17 +41,12 @@ public class ControladorDeJuego : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-    }
-
-    public void Control()
-    {
-        
     }
 }

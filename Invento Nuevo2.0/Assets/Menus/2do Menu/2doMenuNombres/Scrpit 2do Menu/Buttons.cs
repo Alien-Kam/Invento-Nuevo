@@ -9,7 +9,7 @@ public class Buttons : MonoBehaviour
    
      public void CambioDeScena()
     {
-       SceneManager.LoadScene(2);
+       SceneManager.LoadScene(0);
     }
    
 }

@@ -1,37 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
-using Logica;
 using UnityEngine;
 
-public class Turno
+namespace Logica
 {
-  public List<Player> players = new List<Player>();
-  int current = 0;
-  int jugadorespas = 0;
-  public  bool pasarTurno = false;
-  public bool cartamovid = false;
-  public bool habLider = false;
-  private List<bool> pasados = new List<bool>();
-  public Player StartTurn()
+  public class Turno
   {
-    if(pasados[current])
+    public List<Player> players = new List<Player>();
+    int current = 0;
+    int jugadorespas = 0;
+    public bool pasarTurno = false;
+    public bool cartamovid = false;
+    public bool habLider = false;
+    private List<bool> pasados = new List<bool>();
+    public Player StartTurn()
     {
-      EndTurn();
+      if (pasados[current])
+      {
+        EndTurn();
+      }
+      return players[current];
     }
-    return players[current];
-  } 
 
-  public void EndTurn()
-  {
-    if (cartamovid)
+    public void EndTurn()
     {
-      cartamovid = false;
+      if (cartamovid)
+      {
+        cartamovid = false;
+      }
+      if (pasarTurno)
+      {
+        pasados[current] = true;
+        jugadorespas++;
+      }
+      current = (current + 1) % players.Count;
     }
-    if(pasarTurno )
-    {
-      pasados[current] = true;
-      jugadorespas ++;
-    }
-    current = (current + 1) % players.Count;
   }
 }

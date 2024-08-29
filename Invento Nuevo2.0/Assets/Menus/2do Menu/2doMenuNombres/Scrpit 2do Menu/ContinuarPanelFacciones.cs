@@ -39,9 +39,9 @@ public class ContinuarPanelFacciones : MonoBehaviour
 
       List<GameObject> cartsFaccion1 = LoadFaccionCarts(directory1).ToList();
       List<GameObject> cartsFaccion2 = LoadFaccionCarts(directory2).ToList();
-
-      //deck1.GetComponent<DistribuirCartas>().Deck(cartsFaccion1);
-      //deck2.GetComponent<DistribuirCartas>().Deck(cartsFaccion2);
+      
+      deck1.GetComponent<Decks>().deck = cartsFaccion1;
+      deck2.GetComponent<Decks>().deck = cartsFaccion2;
 
       Scene newScene = SceneManager.GetSceneAt(2);
       SceneManager.MoveGameObjectToScene(player1, newScene);

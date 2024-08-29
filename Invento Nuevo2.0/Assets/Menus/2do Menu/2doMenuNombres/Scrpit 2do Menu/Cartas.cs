@@ -21,11 +21,10 @@ public class Cartas : MonoBehaviour
     public Faccion faccion;
     public TipoCarta tipoCarta;
 
-    void Start()
+    public void Awake()
     {
         CrearCarta();
     }
-
     public BaseCard CrearCarta()
     {
 
@@ -33,7 +32,6 @@ public class Cartas : MonoBehaviour
         {
             case TipoCarta.Heroe:
                 Heroe card = new Heroe(nombre, habilidad, faccion, ataque, clasificacion);
-                card.ToString();
                 return card;
 
             case TipoCarta.Normales:
@@ -42,15 +40,16 @@ public class Cartas : MonoBehaviour
 
             case TipoCarta.Clima:
                 Clima cardc = new Clima(nombre, habilidad, faccion);
-                break;
+                return cardc;
 
             case TipoCarta.Aumento:
                 Aumento carda = new Aumento(nombre, habilidad, faccion);
-                break;
+                return carda;
+          
 
             case TipoCarta.Señuelo:
                 Senuelo cards = new Senuelo(nombre, habilidad, faccion);
-        break;
+                return cards;
         }
         return null;
     }

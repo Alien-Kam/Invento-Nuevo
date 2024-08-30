@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombre: 
-  habilidad: 
-  ataque: 0
-  clasificacion: 0
+  nombre: Luffy
+  habilidad: Elimina la carta con mas poder del rival
+  ataque: 8
+  clasificacion: 11
   faccion: 0
   tipoCarta: 0

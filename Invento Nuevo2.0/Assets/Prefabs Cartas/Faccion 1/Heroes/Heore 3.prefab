@@ -91,7 +91,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09910774, y: -0.009267807}
+  m_Offset: {x: 0.099113464, y: -0.14741898}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -102,7 +102,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 29.151474, y: 38.947475}
+  m_Size: {x: 78.33264, y: 93.930885}
   m_EdgeRadius: 0
 --- !u!114 &5976241327653870415
 MonoBehaviour:
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombre: 
-  habilidad: 
-  ataque: 0
-  clasificacion: 0
+  nombre: 'Eren Yeager '
+  habilidad: 'Elimina la carta con menos poder del rival '
+  ataque: 8
+  clasificacion: 100
   faccion: 0
   tipoCarta: 0

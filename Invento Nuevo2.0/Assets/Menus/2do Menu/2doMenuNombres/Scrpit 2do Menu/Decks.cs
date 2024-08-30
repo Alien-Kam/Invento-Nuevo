@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logica;
 
 public class Decks : MonoBehaviour
 {
     public List<GameObject> deck;
-    // Start is called before the first frame update
-    void Start()
+
+
+    public void MostrarDeck() // Esto es un efecto 
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+   // Esto es para robar una carta 
+   public void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Carta"))
+        {
+            Debug.Log("Objeto soltado encima!");
+        }
     }
 }

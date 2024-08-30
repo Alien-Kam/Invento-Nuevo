@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3cfff58b9b107c74cb0c43e40ccad046, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f90f9e0d6ca7464fbf613081af4c8dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91,7 +91,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09910774, y: -0.009267807}
+  m_Offset: {x: 0.36873436, y: -0.009292603}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -102,7 +102,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 29.151474, y: 38.947475}
+  m_Size: {x: 77.68175, y: 92.869995}
   m_EdgeRadius: 0
 --- !u!114 &5976241327653870415
 MonoBehaviour:
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombre: 
-  habilidad: 
-  ataque: 0
-  clasificacion: 0
+  nombre: Levi Ackerman
+  habilidad: Multiplica su ataque segun la cantidad de titanes que hayan en el campo
+  ataque: 5
+  clasificacion: 1
   faccion: 0
   tipoCarta: 0

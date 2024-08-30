@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4734880985212169885}
   - component: {fileID: 4800626248426484948}
   - component: {fileID: 3481377717634084935}
-  - component: {fileID: -3172692467938682072}
+  - component: {fileID: -1779905300845882600}
   m_Layer: 5
-  m_Name: Heore 8.
+  m_Name: Heore 3
   m_TagString: Segunda Faccion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 30.545237, y: 40.189804}
   m_EdgeRadius: 0
---- !u!114 &-3172692467938682072
+--- !u!114 &-1779905300845882600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombre: klvns'boirbio'ri
+  nombre: ngngng
   habilidad: bf .ksb /dskjvjbds
   ataque: 5
   clasificacion: 1

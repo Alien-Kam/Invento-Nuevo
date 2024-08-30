@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -36.7, y: -122.216965}
-  m_SizeDelta: {x: 29.1183, y: 38.784}
+  m_SizeDelta: {x: 77.1028, y: 92.5267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4734880985212169885
 CanvasRenderer:
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombre: 
-  habilidad: 
-  ataque: 0
-  clasificacion: 0
-  faccion: 0
+  nombre: tttttt
+  habilidad: bf .ksb /dskjvjbds
+  ataque: 5
+  clasificacion: 1
+  faccion: 1
   tipoCarta: 0

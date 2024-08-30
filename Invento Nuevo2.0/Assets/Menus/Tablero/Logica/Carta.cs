@@ -42,7 +42,6 @@ namespace Logica
     {
         public int ataque;
         public uint clasificacion;
-
         protected MonsterCard(string nombre, string habilidad, Faccion carta, int ataque ,uint numero) : base(nombre, habilidad, carta)
         {
             this.ataque = ataque;

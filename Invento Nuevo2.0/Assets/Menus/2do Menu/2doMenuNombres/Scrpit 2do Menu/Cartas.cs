@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Logica;
 
+public enum TipoCarta
+{
+    Heroe,
+    Normales,
+    Clima,
+    Aumento,
+    Señuelo,
+}
 public class Cartas : MonoBehaviour
 {
 
-    public enum TipoCarta
-    {
-        Heroe,
-        Normales,
-        Clima,
-        Aumento,
-        Señuelo,
-    }
     public string nombre;
     public string habilidad;
     public int ataque;
@@ -45,13 +45,15 @@ public class Cartas : MonoBehaviour
             case TipoCarta.Aumento:
                 Aumento carda = new Aumento(nombre, habilidad, faccion);
                 return carda;
-          
+
 
             case TipoCarta.Señuelo:
                 Senuelo cards = new Senuelo(nombre, habilidad, faccion);
                 return cards;
+
+            default:
+                throw new System.Exception("Tu cart no es de ningun tipo vuelve a intentarlo");
         }
-        return null;
     }
 }
 

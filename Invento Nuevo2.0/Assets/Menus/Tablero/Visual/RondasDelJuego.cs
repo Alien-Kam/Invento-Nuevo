@@ -8,7 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-public class RondasDelJuego : MonoBehaviour
+/*public class RondasDelJuego : MonoBehaviour
 {
     List<GameObject> mazo;
     List<BaseCard> handlog;
@@ -69,4 +69,4 @@ public class RondasDelJuego : MonoBehaviour
         newInstance.AddComponent<CanvasGroup>();
       }
     }
-}
+}*/

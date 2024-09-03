@@ -27,22 +27,29 @@ namespace Logica
                 {
                     continue;
                 }
-                BaseCard card = deck[i];
+                BaseCard card = deck[deck.Count - 1];
+                deck.RemoveAt(deck.Count - 1);
                 hand.Add(card);
-            }
-            for (int i = 0; i < hand.Count; i++)
-            {
-                deck.Remove(hand[i]);
             }
 
             return hand;
         }
-        public BaseCard RobarCarta(BaseCard card, List<BaseCard> deck, List<bool> posiciones)
-        {
-            deck.Add(card);
-            BaseCard cardret = deck[0];
-            deck.Remove(cardret);
+
+        public void InsertarCarta(BaseCard card, List<BaseCard> deck, int index = 0){
+            if (index < 0 || index >= deck.Count) return;
+            deck.Insert(index, card);
+        }
+
+        public BaseCard RoboCarta(List<BaseCard> deck, int index = 0){
+            BaseCard cardret = deck[index];
+            deck.RemoveAt(index);
             return cardret;
+        }
+
+        public BaseCard IntercambioCarta(BaseCard card, List<BaseCard> deck, int index = 0)
+        {
+            InsertarCarta(card, deck, index);
+            return RoboCarta(deck, index);
         }
 
         // Finalizar rondas 

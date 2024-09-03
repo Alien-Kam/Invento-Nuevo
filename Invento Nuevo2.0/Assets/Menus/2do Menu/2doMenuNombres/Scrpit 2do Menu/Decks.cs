@@ -1,24 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Logica;
+using UnityEngine.UI;
 
 public class Decks : MonoBehaviour
 {
     public List<GameObject> deck;
+   
 
-
-    public void MostrarDeck() // Esto es un efecto 
+   public void Start()
+   {
+    // Scene currentScene = SceneManager.GetActiveScene();
+   }
+   public void OnMouseDown()
     {
 
-    }
-
-   // Esto es para robar una carta 
-   public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Carta"))
-        {
-            Debug.Log("Objeto soltado encima!");
-        }
     }
 }

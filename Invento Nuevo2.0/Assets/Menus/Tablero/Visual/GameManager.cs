@@ -3,23 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Logica;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    List<GameObject> players = new List<GameObject>();
-    List<List<GameObject>> hands = new List<List<GameObject>>();
+    public List<GameObject> players;
+    List<List<GameObject>> hands;
     public Transform canvasTransform;
-    List<Player> playerlog = new List<Player>();
+    public List<Player> playerlog;
     GameObject deck1;
     GameObject deck2;
-    List<bool> posicionescartas1 = new List<bool>();
-    List<bool> posicionescartas2 = new List<bool>();
-
+    List<bool> posicionescartas1;
+    List<bool> posicionescartas2;
     GameObject posicion1;
     GameObject posicion2;
 
+   
+
     public void Awake()
     {
+        players = new List<GameObject>();
+        playerlog = new List<Player>();
+        posicionescartas1 = new List<bool>();
+        posicionescartas2 = new List<bool>();
 
         //Esto busca al objeto en la escena 
         deck1 = GameObject.Find("Deck 1");
@@ -61,54 +67,55 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+       
         //Funciona
-        for (int i = 0; i < deck1.GetComponent<Decks>().deck.Count; i++)
+        hands = new List<List<GameObject>>();
+        List<GameObject> listdeck1 = deck1.GetComponent<Decks>().deck;
+        List<GameObject> listdeck2 = deck2.GetComponent<Decks>().deck;
+        for (int i = 0; i < listdeck1.Count; i++)
         {
-            int indexA = Random.Range(0, deck1.GetComponent<Decks>().deck.Count);
-            int indexB = Random.Range(0, deck1.GetComponent<Decks>().deck.Count);
-
-            GameObject tempcard = deck1.GetComponent<Decks>().deck[indexA];
-            deck1.GetComponent<Decks>().deck[indexA] = deck1.GetComponent<Decks>().deck[indexB];
-            deck1.GetComponent<Decks>().deck[indexB] = tempcard;
-
-            int indexC = Random.Range(0, deck2.GetComponent<Decks>().deck.Count);
-            int indexD = Random.Range(0, deck2.GetComponent<Decks>().deck.Count);
-
-            GameObject temcarddeck2 = deck2.GetComponent<Decks>().deck[indexC];
-            deck2.GetComponent<Decks>().deck[indexC] = deck2.GetComponent<Decks>().deck[indexD];
-            deck2.GetComponent<Decks>().deck[indexD] = temcarddeck2;
+            SwapValues(listdeck1);
+            SwapValues(listdeck2);
         }
 
-         posicion1 = GameObject.Find("Posicion de la mano 1");
-         posicion2 = GameObject.Find("Posicion de la mano 2");
+        posicion1 = GameObject.Find("Posicion de la mano 1");
+        posicion2 = GameObject.Find("Posicion de la mano 2");
 
         for (int i = 0; i < posicion1.transform.childCount; i++)
         {
             posicionescartas1.Add(false);
             posicionescartas2.Add(false);
         }
-        Debug.Log(posicion1.transform.childCount);
-        Debug.Log(posicion1.transform.childCount);
-        ControlJuego();
+        ControlJuego(listdeck1, listdeck2);
     }
 
-
-    public void ControlJuego()
+    private void SwapValues(List<GameObject> deck)
     {
-        Debug.Log("Control del juego");
-        PreparacionRonda();
+        int indexA = Random.Range(0, deck.Count);
+        int indexB = Random.Range(0, deck.Count);
+
+        GameObject tempcard = deck[indexA];
+        deck[indexA] = deck[indexB];
+        deck[indexB] = tempcard;
     }
 
-    public void PreparacionRonda()
+    public void ControlJuego(List<GameObject> listdeck1, List<GameObject> listdeck2)
     {
-        PruebaRonda ronda = new PruebaRonda();
-        List<GameObject> hand1 = new List<GameObject>();
-        List<GameObject> hand2 = new List<GameObject>();
+        PreparacionRonda(listdeck1, listdeck2);
+        Turnos turno = new Turnos();
+        turno.InicioTurno();
+    }
 
-        Debug.Log("PreparacionRonda");
+    public void PreparacionRonda(List<GameObject> listdeck1, List<GameObject> listdeck2)
+    {
+        Ronda ronda = new Ronda();
+        List<GameObject> hand1;
+        List<GameObject> hand2;
 
-        hand1 = ronda.DistribuirCard(deck1.GetComponent<Decks>().deck, posicion1, posicionescartas1);
-        hand2 = ronda.DistribuirCard(deck2.GetComponent<Decks>().deck, posicion2, posicionescartas2);
+        hand1 = ronda.DistribuirCard(listdeck1, posicion1, posicionescartas1);
+        hand2 = ronda.DistribuirCard(listdeck2, posicion2, posicionescartas2);
+        hands.Add(hand1);
+        hands.Add(hand2);
     }
 }
 

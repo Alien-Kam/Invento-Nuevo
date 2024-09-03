@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8367263290661928651}
   - component: {fileID: 1469653397028345996}
   - component: {fileID: 7468817848473276379}
+  - component: {fileID: 1220947006141396826}
   m_Layer: 5
   m_Name: Clima 1
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -70.4, y: -128.2}
-  m_SizeDelta: {x: 29.119, y: 38.782}
+  m_SizeDelta: {x: 77.1028, y: 92.5267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8367263290661928651
 CanvasRenderer:
@@ -103,3 +104,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 30.705185, y: 40.514587}
   m_EdgeRadius: 0
+--- !u!114 &1220947006141396826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3653212606906837129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: 'ddv sdv '
+  habilidad: dv svs
+  ataque: 5
+  clasificacion: 111
+  faccion: 0
+  tipoCarta: 2

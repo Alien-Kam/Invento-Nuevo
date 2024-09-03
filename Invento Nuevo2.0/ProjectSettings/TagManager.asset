@@ -11,6 +11,9 @@ TagManager:
   - Cuerpo a Cuerpo
   - Clima
   - Aumento
+  - DragParent
+  - Posiciones Carta
+  - Cartas
   layers:
   - Default
   - TransparentFX

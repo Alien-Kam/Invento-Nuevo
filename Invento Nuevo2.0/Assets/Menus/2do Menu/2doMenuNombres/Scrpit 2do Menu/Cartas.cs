@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Logica;
+using UnityEngine.EventSystems;
 
 public enum TipoCarta
 {

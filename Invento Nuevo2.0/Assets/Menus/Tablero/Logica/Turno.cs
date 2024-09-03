@@ -6,15 +6,29 @@ namespace Logica
 {
   public class Turno
   {
-    public List<Player> players = new List<Player>();
-    int current = 0;
-    int jugadorespas = 0;
-    public bool pasarTurno = false;
-    public bool cartamovid = false;
-    public bool habLider = false;
-    private List<bool> pasados = new List<bool>();
-    public Player StartTurn()
+    public List<Player> players;
+    int current;
+    int jugadorespas;
+    public bool pasarTurno;
+    public bool cartamovid;
+    public bool habLider;
+    private List<bool> pasados;
+    public Turno()
     {
+      players = new List<Player>();
+      current = 0;
+      jugadorespas = 0;
+      pasarTurno = false;
+      cartamovid = false;
+      habLider = false;
+      pasados = new List<bool>() { false, false };
+
+    }
+    public Player BegingTurn(List<Player> player)
+    {
+      Debug.Log("Entre");
+      players = player;
+
       if (pasados[current])
       {
         EndTurn();
@@ -24,6 +38,8 @@ namespace Logica
 
     public void EndTurn()
     {
+      Debug.Log(players.Count);
+
       if (cartamovid)
       {
         cartamovid = false;
@@ -34,6 +50,7 @@ namespace Logica
         jugadorespas++;
       }
       current = (current + 1) % players.Count;
+      Debug.Log("vvvvvrvr");
     }
   }
 }

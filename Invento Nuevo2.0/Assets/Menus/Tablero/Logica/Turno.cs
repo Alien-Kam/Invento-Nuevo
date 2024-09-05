@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 namespace Logica
@@ -12,23 +15,20 @@ namespace Logica
     public bool pasarTurno;
     public bool cartamovid;
     public bool habLider;
-    private List<bool> pasados;
-    public Turno()
+    public bool[] pasados;
+    public Turno(List<Player> player)
     {
-      players = new List<Player>();
+      players = player;
       current = 0;
       jugadorespas = 0;
       pasarTurno = false;
       cartamovid = false;
       habLider = false;
-      pasados = new List<bool>() { false, false };
-
+      pasados = new bool[player.Count]; // Antes del implica es el parametro y luego del implica el codigo
     }
-    public Player BegingTurn(List<Player> player)
-    {
-      Debug.Log("Entre");
-      players = player;
 
+    public Player BegingTurn(bool[] pasados)
+    {
       if (pasados[current])
       {
         EndTurn();
@@ -38,8 +38,6 @@ namespace Logica
 
     public void EndTurn()
     {
-      Debug.Log(players.Count);
-
       if (cartamovid)
       {
         cartamovid = false;
@@ -50,7 +48,6 @@ namespace Logica
         jugadorespas++;
       }
       current = (current + 1) % players.Count;
-      Debug.Log("vvvvvrvr");
     }
   }
 }

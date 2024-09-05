@@ -11,15 +11,16 @@ namespace Logica
       Asedio = 0b_100,
       Aumento,
       Clima,
+      Deck,
    }
-   class Tablero
+   public class Tablero
    {
       // Porque las señuelos no se pueden hacer monstercards
       public MonsterCard[,] tablero;
       public bool[,] tablerobool;
-      public Aumento[] aumentos;
+      public BaseCard[] aumentos;
       public bool[] aumentosbool;
-      public Clima[] climas;
+      public BaseCard[] climas;
       public bool[] climasbool;
       public List<BaseCard> cementerio;
 
@@ -27,8 +28,8 @@ namespace Logica
       {
          tablero = new MonsterCard[6, 5];
          tablerobool = new bool[6, 5];
-         climas = new Clima[6];
-         aumentos = new Aumento[6];
+         climas = new BaseCard[6];
+         aumentos = new BaseCard[6];
          aumentosbool = new bool[6];
          climasbool = new bool[6];
          cementerio = new List<BaseCard>();
@@ -37,10 +38,39 @@ namespace Logica
 
    public class FuncionesTablero
    {
-      Tablero tablerojuego = new Tablero();
-      public void PosicionarCarta(BaseCard card, int fila, int columna)
+      Tablero tab;
+      public FuncionesTablero(Tablero tablero)
       {
-      
+         tab = tablero;
+      }
+      Tablero tablero = new Tablero();
+      public void InicializarTablero(Tablero tablerojuego)
+      {
+         tablero = tablerojuego;
+      }
+      public void PonerCartas(BaseCard card, int fila, int columna, Player player)
+      {
+         if (columna > 5)
+         {
+            if (columna == 6)
+            {
+               tablero.aumentos[fila] = card;
+               tablero.aumentosbool[fila] = true;
+            }
+
+            else
+            {
+               tablero.climas[fila] = card;
+               tablero.climasbool[fila] = true;
+            }
+         }
+         else
+         {
+            MonsterCard carta = card as MonsterCard;
+            tablero.tablero[fila, columna] = carta;
+            tablero.tablerobool[fila, columna] = true;
+            player.puntos += carta.ataque;
+         }
       }
 
       public bool IsValido(uint clas, Faccion tab, uint clascard, Faccion card)
@@ -56,7 +86,7 @@ namespace Logica
 
       public bool IsValidoEspecial(TipoPosicion tab, TipoCarta card, Faccion factab, Faccion faccard)
       {
-         if((factab == faccard) && ((tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima)))
+         if ((factab == faccard) && ((tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima)))
          {
             return true;
          }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Logica;
 using Unity.VisualScripting;
 using System.Linq;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class GameManager : MonoBehaviour
     List<bool> posicionescartas2;
     GameObject posicion1;
     GameObject posicion2;
-
-   
+    public Tablero tablero;
+    public FuncionesTablero funcionesTablero;
 
     public void Awake()
     {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         GameObject player1 = GameObject.Find("Player 1");
         GameObject player2 = GameObject.Find("Player 2");
-
+  
         //Lo añade a la lista de players una herramienta misteriosa que utilizaremos mas tarde 
         players.Add(player1);
         players.Add(player2);
@@ -63,11 +64,18 @@ public class GameManager : MonoBehaviour
 
         playerlog.Add(player3);
         playerlog.Add(player4);
+
+       tablero = new Tablero();
+       funcionesTablero = new FuncionesTablero(tablero);
+       funcionesTablero.InicializarTablero(tablero);
+
+        // Hacer un metodo que se llame al incio del turno y pasarle las cosas a ese turno para inicializar las cosas
     }
 
     public void Start()
     {
-       
+
+
         //Funciona
         hands = new List<List<GameObject>>();
         List<GameObject> listdeck1 = deck1.GetComponent<Decks>().deck;
@@ -87,6 +95,7 @@ public class GameManager : MonoBehaviour
             posicionescartas2.Add(false);
         }
         ControlJuego(listdeck1, listdeck2);
+
     }
 
     private void SwapValues(List<GameObject> deck)
@@ -102,8 +111,9 @@ public class GameManager : MonoBehaviour
     public void ControlJuego(List<GameObject> listdeck1, List<GameObject> listdeck2)
     {
         PreparacionRonda(listdeck1, listdeck2);
-        Turnos turno = new Turnos();
-        turno.InicioTurno();
+        Turnos turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
+        turnos.instanciasTurnos(playerlog);
+        turnos.InicioTurno();
     }
 
     public void PreparacionRonda(List<GameObject> listdeck1, List<GameObject> listdeck2)

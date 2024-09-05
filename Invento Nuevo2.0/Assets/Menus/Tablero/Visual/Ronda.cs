@@ -8,16 +8,22 @@ using UnityEngine;
 
 public class Ronda : MonoBehaviour
 {
+  GameManager control;
+  Turnos turno;
   // Start is called before the first frame update
   public void Start()
   {
-
+    control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
+    turno = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
   }
 
   // Update is called once per frame
   public void Update()
   {
-
+    if(turno.playerspasados == control.players.Count)
+    {
+      TerminarRonda();
+    }
   }
 
   Rondas ronda = new Rondas();
@@ -77,5 +83,16 @@ public class Ronda : MonoBehaviour
     Destroy(card);
 
     InstanciarCartas(cartaretorno, posiciones, positionhand);
+  }
+
+  public void TerminarRonda()
+  {
+    Debug.Log("Termino la ronda");
+    turno.playerspasados  = 0;
+    for(int i = 0; i < turno.pasados.Length; i++)
+    {
+      turno.pasados[i] = false;
+    }
+    
   }
 }

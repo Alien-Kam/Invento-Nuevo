@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using Logica;
 using JetBrains.Annotations;
 using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 
 
 public class DropPosition : MonoBehaviour, IDropHandler
@@ -14,30 +15,39 @@ public class DropPosition : MonoBehaviour, IDropHandler
     private GameObject _item;
     private FuncionesTablero tablero;
     private Turnos turnos;
+    Cartas card;
+    BaseCard cardlog;
+    GameObject newitem;
+    GameManager control;
+    bool okcard;
 
-   public void Start()
-   {
-     tablero = new FuncionesTablero();
-     turnos = new Turnos();
-   }
+    public void Start()
+    {
+        turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
+        control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
+        tablero = control.funcionesTablero;
+    }
     // Si entra al metodo y este metodo hace la funcion de Drop
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject newitem = eventData.pointerDrag;
-        
-        if(newitem.GetComponent<DragItem>().move)
+        GameObject player = control.players[turnos.current];
+        newitem = eventData.pointerDrag;
+        okcard = newitem.GetComponent<DragItem>().ok;
+
+        if (newitem.GetComponent<DragItem>().move || !okcard)
         {
-          return;
+            return;
         }
-        Cartas card = newitem.GetComponent<Cartas>();
-        BaseCard cardlog = card.CrearCarta();
-        Debug.Log(card.nombre);
-        
+        card = newitem.GetComponent<Cartas>();
+        cardlog = card.CrearCarta();
+
         if (_item && newitem.GetComponent<Cartas>().tipoCarta != TipoCarta.Señuelo)
         {
             newitem.GetComponent<DragItem>().ReturnToStartingPosition();
             return;
         }
+
+       
         if (card.tipoCarta == TipoCarta.Aumento || card.tipoCarta == TipoCarta.Clima)
         {
             bool validespecial = tablero.IsValidoEspecial(clasificacion, card.tipoCarta, faccion, card.faccion);
@@ -46,7 +56,7 @@ public class DropPosition : MonoBehaviour, IDropHandler
                 _item.GetComponent<DragItem>().ReturnToStartingPosition();
             }
         }
-        else 
+        else
         {
             bool valido = tablero.IsValido((uint)clasificacion, faccion, card.clasificacion, card.faccion);
 
@@ -61,7 +71,8 @@ public class DropPosition : MonoBehaviour, IDropHandler
         _item.transform.SetParent(transform);
         compitem.IsDropped(true);
         compitem.move = true;
-        tablero.PosicionarCarta(cardlog, (int)position.x, (int)position.y);
-        turnos.TerminaraTurno();
+        tablero.PonerCartas(cardlog, (int)position.x, (int)position.y, turnos.player);
+        turnos.termino = true;
     }
+
 }

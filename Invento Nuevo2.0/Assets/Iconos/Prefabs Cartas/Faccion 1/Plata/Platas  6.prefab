@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5551531629502380227}
   - component: {fileID: 6222653815640137842}
   - component: {fileID: 3778373947181944568}
+  - component: {fileID: 4622806806536831608}
   m_Layer: 5
-  m_Name: Platas  3
+  m_Name: Platas  6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -27.5, y: -123.3}
-  m_SizeDelta: {x: 30.371, y: 39.6951}
+  m_SizeDelta: {x: 77.1028, y: 92.5267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5551531629502380227
 CanvasRenderer:
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 223bfd7de5af3474abc4808cd88593a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7ee0d7357011d14f9432cc08fba8e8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,7 +91,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06573486, y: -0.0337677}
+  m_Offset: {x: 0.0037765503, y: 0.11743355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -101,5 +102,23 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30.562622, y: 39.9075}
+  m_Size: {x: 31.289265, y: 40.7525}
   m_EdgeRadius: 0
+--- !u!114 &4622806806536831608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993964466580096341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: 'b b  g dg g '
+  habilidad: ' fd bdf df bf'
+  ataque: 5
+  clasificacion: 1
+  faccion: 0
+  tipoCarta: 1

@@ -10,16 +10,15 @@ using UnityEditor.Experimental.GraphView;
 public class DropPosition : MonoBehaviour, IDropHandler
 {
     public Vector2 position;
-    public Faccion faccion;
     public TipoPosicion clasificacion;
-    private GameObject _item;
+    public GameObject _item;
     private FuncionesTablero tablero;
     private Turnos turnos;
     Cartas card;
     BaseCard cardlog;
     GameObject newitem;
     GameManager control;
-    bool okcard;
+    public int seccion;
 
     public void Start()
     {
@@ -30,14 +29,16 @@ public class DropPosition : MonoBehaviour, IDropHandler
     // Si entra al metodo y este metodo hace la funcion de Drop
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject player = control.players[turnos.current];
+        int player = turnos.turno.current;
         newitem = eventData.pointerDrag;
-        okcard = newitem.GetComponent<DragItem>().ok;
+        bool okcard = newitem.GetComponent<DragItem>().ok;
+        Debug.Log(okcard);
 
         if (newitem.GetComponent<DragItem>().move || !okcard)
         {
             return;
         }
+
         card = newitem.GetComponent<Cartas>();
         cardlog = card.CrearCarta();
 
@@ -50,7 +51,7 @@ public class DropPosition : MonoBehaviour, IDropHandler
        
         if (card.tipoCarta == TipoCarta.Aumento || card.tipoCarta == TipoCarta.Clima)
         {
-            bool validespecial = tablero.IsValidoEspecial(clasificacion, card.tipoCarta, faccion, card.faccion);
+            bool validespecial = tablero.IsValidoEspecial(clasificacion, card.tipoCarta, player, seccion);
             if (!validespecial || _item)
             {
                 _item.GetComponent<DragItem>().ReturnToStartingPosition();
@@ -58,7 +59,8 @@ public class DropPosition : MonoBehaviour, IDropHandler
         }
         else
         {
-            bool valido = tablero.IsValido((uint)clasificacion, faccion, card.clasificacion, card.faccion);
+            bool valido = tablero.IsValido((uint)clasificacion, card.clasificacion, player, seccion);
+            Debug.Log(valido);
 
             if (!valido || _item)
             {
@@ -66,11 +68,10 @@ public class DropPosition : MonoBehaviour, IDropHandler
             }
         }
         _item = newitem;
-        _item.transform.position = transform.position;
         DragItem compitem = _item.GetComponent<DragItem>();
         _item.transform.SetParent(transform);
+        _item.transform.position = transform.position + new Vector3(0, 0, 1);
         compitem.IsDropped(true);
-        compitem.move = true;
         tablero.PonerCartas(cardlog, (int)position.x, (int)position.y, turnos.player);
         turnos.termino = true;
     }

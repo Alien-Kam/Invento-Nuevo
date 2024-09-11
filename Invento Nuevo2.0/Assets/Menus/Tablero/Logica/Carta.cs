@@ -83,4 +83,11 @@ namespace Logica
         {
         }
     }
+
+    public class Lider : BaseCard
+    {
+        public Lider(string nombre, string habilidad, Faccion carta) : base(nombre, habilidad, carta)
+        {
+        }
+    }
 }

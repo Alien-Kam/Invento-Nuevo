@@ -73,10 +73,10 @@ namespace Logica
          }
       }
 
-      public bool IsValido(uint clas, Faccion tab, uint clascard, Faccion card)
+      public bool IsValido(uint clas, uint clascard, int playeractual, int seccion)
       {
          bool val = (clas & clascard) == clas;
-         if ((tab == card) && val)
+         if ((seccion == playeractual) && val)
          {
             return true;
          }
@@ -84,9 +84,9 @@ namespace Logica
          return false;
       }
 
-      public bool IsValidoEspecial(TipoPosicion tab, TipoCarta card, Faccion factab, Faccion faccard)
+      public bool IsValidoEspecial(TipoPosicion tab, TipoCarta card, int playeractual, int seccion)
       {
-         if ((factab == faccard) && ((tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima)))
+         if((seccion == playeractual)&&(tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima))
          {
             return true;
          }

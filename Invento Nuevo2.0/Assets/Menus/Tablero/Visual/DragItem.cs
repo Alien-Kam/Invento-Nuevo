@@ -4,7 +4,7 @@ using UnityEngine;
 using Logica;
 using UnityEngine.EventSystems;
 using System;
-public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerUpHandler
+public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
   private GameObject _dragParent;
   private bool _isDropped = false;
@@ -16,6 +16,8 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   public bool move;
   Turnos turnoactual;
   GameObject player;
+  public BaseCard carta;
+  private CanvasGroup canvas;
   public bool ok;
 
   public void Start()
@@ -23,6 +25,7 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     move = false;
     ok = false;
     _dragParent = GameObject.Find("DragParent");
+    canvas = _dragParent.GetComponent<CanvasGroup>();
     turnoactual = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
     control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
     card = gameObject;
@@ -30,20 +33,20 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
   public void Valido()
   {
-    ok = GetPathParent(card, control.players[turnoactual.current]);
+    player = control.players[turnoactual.turno.current];
+    ok = GetPathParent(card, player);
 
   }
 
   public void OnBeginDrag(PointerEventData eventData)
   {
     Valido();
-    Debug.Log(ok);
     if (move || !ok) return;
     _startingPosition = transform.position;
     _startingParent = transform.parent;
     transform.SetParent(_dragParent.transform);
+    canvas.blocksRaycasts = false;
   }
-
   public void OnDrag(PointerEventData eventData)
   {
     if (move || !ok) return;
@@ -52,11 +55,15 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
   public void OnEndDrag(PointerEventData eventData)
   {
+    canvas.blocksRaycasts = true;
     if (move || !ok) return;
     if (_isDropped)
     {
+      move = true;
+      Debug.Log(_isDropped);
       return;
     }
+
     ReturnToStartingPosition();
   }
 
@@ -76,33 +83,26 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     return _enableDrop;
   }
 
-  public void OnPointerUp(PointerEventData eventData)
-  {
-    Debug.Log("Hola aqui estamos");
-  }
-
   public bool GetPathParent(GameObject newitem, GameObject player)
   {
     string tags = "Seccion";
-    GameObject parent1 = FindParentWithTag(newitem, tags); // Este no lo capta bien 
-    Debug.Log($"Este es el padre:  {parent1}");
+    GameObject parent1 = FindParentWithTag(newitem, tags);
     GameObject parent2 = FindParentWithTag(player, tags);
 
     bool ok1 = parent1.Equals(parent2);
     return ok1;
-
   }
   public GameObject FindParentWithTag(GameObject child, string tag)
   {
-     Transform parentTransform = child.transform.parent;
+    Transform parentTransform = child.transform.parent;
     while (parentTransform != null)
     {
-        if (parentTransform.CompareTag(tag))
-        {
-            return parentTransform.gameObject;
-        }
-        parentTransform = parentTransform.parent;
+      if (parentTransform.CompareTag(tag))
+      {
+        return parentTransform.gameObject;
+      }
+      parentTransform = parentTransform.parent;
     }
-    return null; 
+    return null;
   }
 }

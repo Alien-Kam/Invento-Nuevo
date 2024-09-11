@@ -11,6 +11,7 @@ public enum TipoCarta
     Clima,
     Aumento,
     Señuelo,
+    Lider,
 }
 public class Cartas : MonoBehaviour
 {
@@ -21,40 +22,35 @@ public class Cartas : MonoBehaviour
     public uint clasificacion;
     public Faccion faccion;
     public TipoCarta tipoCarta;
+    private BaseCard baseCard;
 
-    public void Awake()
-    {
-        CrearCarta();
-    }
     public BaseCard CrearCarta()
     {
-
+        if (baseCard != null) return baseCard;
         switch (tipoCarta)
         {
             case TipoCarta.Heroe:
-                Heroe card = new Heroe(nombre, habilidad, faccion, ataque, clasificacion);
-                return card;
-
+                baseCard = new Heroe(nombre, habilidad, faccion, ataque, clasificacion);
+                break;
             case TipoCarta.Normales:
-                Normales cardh = new Normales(nombre, habilidad, faccion, ataque, clasificacion);
-                return cardh;
-
+                baseCard = new Normales(nombre, habilidad, faccion, ataque, clasificacion);
+                break;
             case TipoCarta.Clima:
-                Clima cardc = new Clima(nombre, habilidad, faccion);
-                return cardc;
-
+                baseCard = new Clima(nombre, habilidad, faccion);
+                break;
             case TipoCarta.Aumento:
-                Aumento carda = new Aumento(nombre, habilidad, faccion);
-                return carda;
-
-
+                baseCard = new Aumento(nombre, habilidad, faccion);
+                break;
             case TipoCarta.Señuelo:
-                Senuelo cards = new Senuelo(nombre, habilidad, faccion);
-                return cards;
-
+                baseCard = new Senuelo(nombre, habilidad, faccion);
+                break;
+            case TipoCarta.Lider:
+                baseCard = new Lider(nombre, habilidad, faccion);
+                break;
             default:
-                throw new System.Exception("Tu cart no es de ningun tipo vuelve a intentarlo");
+                throw new System.Exception("Tu carta no es de ningun tipo vuelve a intentarlo");
         }
+        return baseCard;
     }
 }
 

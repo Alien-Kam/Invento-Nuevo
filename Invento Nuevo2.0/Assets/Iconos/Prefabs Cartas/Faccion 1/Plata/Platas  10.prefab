@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5551531629502380227}
   - component: {fileID: 6222653815640137842}
   - component: {fileID: 3778373947181944568}
+  - component: {fileID: 9208942200051888613}
   m_Layer: 5
-  m_Name: Platas  6
+  m_Name: Platas  10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -27.5, y: -123.3}
-  m_SizeDelta: {x: 30.371, y: 39.6951}
+  m_SizeDelta: {x: 77.1028, y: 92.5267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5551531629502380227
 CanvasRenderer:
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7ee0d7357011d14f9432cc08fba8e8b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ce339312bbfc344ebc78ae725f4492f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -103,3 +104,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 31.289265, y: 40.7525}
   m_EdgeRadius: 0
+--- !u!114 &9208942200051888613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993964466580096341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a9cecabe920494cbd8e0ef448763ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: rberbrebrb
+  habilidad: breberberbr
+  ataque: 6
+  clasificacion: 1
+  faccion: 0
+  tipoCarta: 0

@@ -4,18 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Logica;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class Decks : MonoBehaviour
+public class Decks : MonoBehaviour, IPointerClickHandler
 {
     public List<GameObject> deck;
-   
 
-   public void Start()
-   {
-    // Scene currentScene = SceneManager.GetActiveScene();
-   }
-   public void OnMouseDown()
+    public void Start()
     {
 
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("djbdnkbdrub'rgrgnrnrkgnrniglkeroslgoehn");
+        
     }
 }

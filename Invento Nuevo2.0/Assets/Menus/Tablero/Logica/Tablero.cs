@@ -86,7 +86,7 @@ namespace Logica
 
       public bool IsValidoEspecial(TipoPosicion tab, TipoCarta card, int playeractual, int seccion)
       {
-         if((seccion == playeractual)&&(tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima))
+         if((seccion == playeractual)&&((tab == TipoPosicion.Aumento && card == TipoCarta.Aumento) || (tab == TipoPosicion.Clima && card == TipoCarta.Clima)))
          {
             return true;
          }

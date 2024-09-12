@@ -49,10 +49,10 @@ namespace Logica
             return hand;
         }*/
 
-        public void InsertarCarta(BaseCard card, List<BaseCard> deck, int index = 0)
+        public void InsertarCarta(BaseCard card, List<BaseCard> deck)
         {
             if (index < 0 || index >= deck.Count) return;
-            deck.Insert(index, card);
+            deck.Add(card);
         }
 
         public BaseCard RoboCarta(List<BaseCard> deck, int index = 0)
@@ -64,7 +64,7 @@ namespace Logica
 
         public BaseCard IntercambioCarta(BaseCard card, List<BaseCard> deck, int index = 0)
         {
-            InsertarCarta(card, deck, index);
+            InsertarCarta(card, deck);
             return RoboCarta(deck, index);
         }
 

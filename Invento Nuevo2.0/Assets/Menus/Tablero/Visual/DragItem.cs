@@ -19,6 +19,7 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   public BaseCard carta;
   private CanvasGroup canvas;
   public bool ok;
+  public bool cementerio;
 
   public void Start()
   {
@@ -41,7 +42,7 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   public void OnBeginDrag(PointerEventData eventData)
   {
     Valido();
-    if (move || !ok) return;
+    if (move || !ok || cementerio) return;
     _startingPosition = transform.position;
     _startingParent = transform.parent;
     transform.SetParent(_dragParent.transform);
@@ -49,18 +50,17 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   }
   public void OnDrag(PointerEventData eventData)
   {
-    if (move || !ok) return;
+    if (move || !ok || cementerio) return;
     transform.position = eventData.position;
   }
 
   public void OnEndDrag(PointerEventData eventData)
   {
     canvas.blocksRaycasts = true;
-    if (move || !ok) return;
+    if (move || !ok || cementerio) return;
     if (_isDropped)
     {
       move = true;
-      Debug.Log(_isDropped);
       return;
     }
 

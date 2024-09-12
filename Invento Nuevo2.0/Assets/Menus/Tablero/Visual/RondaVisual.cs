@@ -17,6 +17,7 @@ public class RondaVisual : MonoBehaviour
   Rondas rondas;
   List<Player> player;
   public bool terminoronda;
+  int currentplayer => turnos.turno.current;
 
   //Variables del visual
   Turnos turnos;
@@ -185,28 +186,40 @@ public class RondaVisual : MonoBehaviour
     GameObject gameObject = Instantiate(card, posiciones.position, Quaternion.identity);
     gameObject.transform.SetParent(posiciones);
     gameObject.AddComponent<DragItem>();
+    gameObject.AddComponent<CanvasGroup>();
+    gameObject.tag = "Cartas";
     gameObject.layer = 6;
 
     return gameObject;
   }
 
-  public void Robar(GameObject card, List<GameObject> deck, List<bool> posiciones, GameObject positionhand)
+  public void Robar(GameObject card)
   {
     BaseCard cartadevuelta = card.GetComponent<Cartas>().CrearCarta();
     List<BaseCard> decklog = new List<BaseCard>();
 
-    for (int i = 0; i < deck.Count; i++)
+    for (int i = 0; i < listdecks[currentplayer].Count; i++)
     {
-      decklog.Add(deck[i].GetComponent<Cartas>().CrearCarta());
+      decklog.Add(listdecks[currentplayer][i].GetComponent<Cartas>().CrearCarta());
     }
 
     BaseCard carta = rondas.IntercambioCarta(cartadevuelta, decklog);
-    GameObject cartaretorno = deck[0];
-    deck.Add(card);
-    deck.Remove(cartaretorno);
+    GameObject cartaretorno = listdecks[currentplayer][0];
+    listdecks[currentplayer].Add(card);
+    listdecks[currentplayer].Remove(cartaretorno);
     Destroy(card);
 
-    // InstanciarCartas(cartaretorno, positionhand);
+    for (int i = 0; i < posiciones[currentplayer].transform.childCount; i++)
+    {
+      var child = posiciones[currentplayer].transform.GetChild(i);
+      PosicionMano pos = child.GetComponent<PosicionMano>();
+      if (!pos.ocupada)
+      {
+        InstanciarCartas(cartaretorno, child);
+        break;
+      }
+    }
+
   }
 
   //Estos son los metodos de Terminar una ronda

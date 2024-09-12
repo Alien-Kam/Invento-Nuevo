@@ -75,12 +75,12 @@ public class GameManager : MonoBehaviour
 
 
         //Este le asigna posicion deck como padre del deck 
-        deck1.transform.SetParent(posiciondeck1.transform, false);
-        deck2.transform.SetParent(posiciondeck2.transform, false);
+        deck1.transform.SetParent(posiciondeck1.transform);
+        deck2.transform.SetParent(posiciondeck2.transform);
 
         //Lo pone en la posicion del padre 
-        deck1.transform.position = deck1.transform.parent.position;
-        deck2.transform.position = deck2.transform.parent.position;
+        deck1.transform.position = new Vector3(deck1.transform.parent.position.x, deck1.transform.parent.position.y, deck1.transform.parent.position.z + 1);
+        deck2.transform.position = new Vector3(deck2.transform.parent.position.x, deck2.transform.parent.position.y, deck2.transform.parent.position.z + 1);
 
         //Le asigna seccion como padre del player
         player1.transform.SetParent(seccion1.transform, false);

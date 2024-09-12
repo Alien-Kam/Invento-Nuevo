@@ -19,9 +19,11 @@ public class DropPosition : MonoBehaviour, IDropHandler
     GameObject newitem;
     GameManager control;
     public int seccion;
+    GameObject pos;
 
     public void Start()
     {
+        pos = this.gameObject;
         turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
         control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
         tablero = control.funcionesTablero;
@@ -49,7 +51,7 @@ public class DropPosition : MonoBehaviour, IDropHandler
         }
 
        
-        if (card.tipoCarta == TipoCarta.Aumento || card.tipoCarta == TipoCarta.Clima)
+        if (clasificacion == TipoPosicion.Clima || clasificacion == TipoPosicion.Aumento)
         {
             bool validespecial = tablero.IsValidoEspecial(clasificacion, card.tipoCarta, player, seccion);
             if (!validespecial || _item)

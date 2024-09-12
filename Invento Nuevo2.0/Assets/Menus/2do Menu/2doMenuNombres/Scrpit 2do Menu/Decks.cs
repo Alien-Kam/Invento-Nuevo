@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Decks : MonoBehaviour, IPointerClickHandler
 {
     public List<GameObject> deck;
+    
 
     public void Start()
     {
@@ -16,7 +17,5 @@ public class Decks : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("djbdnkbdrub'rgrgnrnrkgnrniglkeroslgoehn");
-        
     }
 }

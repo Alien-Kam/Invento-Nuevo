@@ -22,7 +22,7 @@ public class Cartas : MonoBehaviour
     public uint clasificacion;
     public Faccion faccion;
     public TipoCarta tipoCarta;
-    private BaseCard baseCard;
+    public BaseCard baseCard;
 
     public BaseCard CrearCarta()
     {

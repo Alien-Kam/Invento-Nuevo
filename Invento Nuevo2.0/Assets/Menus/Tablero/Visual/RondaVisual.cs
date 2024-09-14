@@ -14,15 +14,15 @@ public class RondaVisual : MonoBehaviour
 {
 
   //Variables de la logica
-  Rondas rondas;
-  List<Player> player;
+  public Rondas rondas;
+  public List<Player> player;
   public bool terminoronda;
   int currentplayer => turnos.turno.current;
 
   //Variables del visual
   Turnos turnos;
-  List<List<GameObject>> listdecks;
-  List<List<GameObject>> handList;
+  public List<List<GameObject>> listdecks;
+  List<List<GameObject>> hands;
   List<GameObject> posiciones;
   public List<TMP_Text> puntosRonda;
   public List<TMP_Text> puntos;
@@ -34,43 +34,32 @@ public class RondaVisual : MonoBehaviour
   float tiempo;
   public bool isPanelActive;
   public List<GameObject> posicionesLider;
+  public List<GameObject> decks;
   // Start is called before the first frame update
-  public void Start()
+  public void Awake()
   {
+    tiempo = 3f;
+    isPanelActive = false;
+
+    //Instancias las variables
+   
+    posiciones = new List<GameObject>();
+
     //Busca objetos de la escena
     posiciones = new List<GameObject>();
     control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
     turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
+    decks = GameObject.FindGameObjectsWithTag("Deck").ToList();
 
     GameObject posicion1 = GameObject.Find("Posicion de la mano 1");
     GameObject posicion2 = GameObject.Find("Posicion de la mano 2");
-    //Instancias las variables
-    tags = new List<string>();
-    posiciones = new List<GameObject>();
 
-    tiempo = 3f;
-    terminoronda = false;
-    isPanelActive = false;
-
-    listdecks = control.decks;
-    handList = control.hands;
-    cementerios = control.cementerio;
     puntos = turnos.textospunt;
-
 
     //Agrecar cosas a las listas 
     posiciones.Add(posicion1);
     posiciones.Add(posicion2);
-
-    tags.Add("Posiciones 1");
-    tags.Add("Posiciones 2");
-
-    // Como me dio pereza  esto le asigna las posiciones a los cementerios que deben recorrer forma parte de buscar objetos
-    //en la escena
-    for (int i = 0; i < cementerios.Length; i++)
-    {
-      cementerios[i].GetComponent<Cementerio>().Posiciones(tags[i]);
-    }
+    
   }
 
   // Update is called once per frame
@@ -91,16 +80,20 @@ public class RondaVisual : MonoBehaviour
     if (!control.terminojuego && terminoronda && !isPanelActive)
     {
       Debug.Log("Creo una nueva ronda");
-      InstanciarRondas(control.playerlog);
+      InstanciarRondas(control.playerlog, control.decks, control.hands,control.cementerio);
       IniciarRonda();
     }
   }
 
 
   //Se llama al principio para crear una nueva ronda
-  public void InstanciarRondas(List<Player> player)
+  public void InstanciarRondas(List<Player> player, List<List<GameObject>> decks, List<List<GameObject>> controlhands,GameObject[] cementerio)
   {
     rondas = new Rondas(player);
+    listdecks = decks;
+    hands = controlhands;
+    cementerios = cementerio;
+
   }
 
   //Este es el inicio de toda ronda
@@ -185,6 +178,7 @@ public class RondaVisual : MonoBehaviour
   {
     GameObject gameObject = Instantiate(card, posiciones.position, Quaternion.identity);
     gameObject.transform.SetParent(posiciones);
+    posiciones.GetComponent<PosicionMano>().ocupada = true;
     gameObject.AddComponent<DragItem>();
     gameObject.AddComponent<CanvasGroup>();
     gameObject.tag = "Cartas";
@@ -200,14 +194,16 @@ public class RondaVisual : MonoBehaviour
 
     for (int i = 0; i < listdecks[currentplayer].Count; i++)
     {
-      decklog.Add(listdecks[currentplayer][i].GetComponent<Cartas>().CrearCarta());
+      decklog.Add(listdecks[currentplayer][i].GetComponent<Cartas>().baseCard);
+      Debug.Log(listdecks[currentplayer][i].GetComponent<Cartas>().baseCard);
     }
 
     BaseCard carta = rondas.IntercambioCarta(cartadevuelta, decklog);
     GameObject cartaretorno = listdecks[currentplayer][0];
     listdecks[currentplayer].Add(card);
     listdecks[currentplayer].Remove(cartaretorno);
-    Destroy(card);
+    card.transform.SetParent(decks[currentplayer].transform);
+    card.transform.localPosition = new Vector3(card.transform.parent.position.x, card.transform.parent.position.y, card.transform.parent.position.z - 1);
 
     for (int i = 0; i < posiciones[currentplayer].transform.childCount; i++)
     {
@@ -219,7 +215,6 @@ public class RondaVisual : MonoBehaviour
         break;
       }
     }
-
   }
 
   //Estos son los metodos de Terminar una ronda

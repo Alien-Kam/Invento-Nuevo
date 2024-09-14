@@ -14,11 +14,12 @@ public class Cementerio : MonoBehaviour, IPointerClickHandler
     List<GameObject> cementerio;
     public List<GameObject> posicionestab;
     public GameObject cementerioscroll;
-    Turno turnoactual;
     Turnos turnovisual;
     public List<GameObject> posvisual;
     public List<Transform> posscroll;
     public GameObject[] cartas;
+    public int numeroCementerio;
+        Cementeriolog cementerion;
     
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class Cementerio : MonoBehaviour, IPointerClickHandler
         cementerio = new List<GameObject>();
         turnovisual = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
         cementerioscroll.SetActive(false);
+        cementerion = new Cementeriolog();
     }
 
     // Update is called once per frame
@@ -48,7 +50,7 @@ public class Cementerio : MonoBehaviour, IPointerClickHandler
             {
                 cementerio.Add(pos._item);
                 pos._item.transform.SetParent(cemt.transform);
-                pos._item.transform.position = cemt.transform.position;
+                pos._item.transform.localPosition = new Vector3(pos._item.transform.parent.position.x,pos._item.transform.parent.position.y,pos._item.transform.parent.position.z-1);
                 pos._item = null;
             }
         }
@@ -56,7 +58,14 @@ public class Cementerio : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        int current = turnovisual.turno.current;
+         if(!cementerion.MirarVal(current,numeroCementerio))
+         {
+            return;
+         }
         cementerioscroll.SetActive(true);
+        
+
         posvisual = GameObject.FindGameObjectsWithTag("Posiciones Scroll").ToList();
         posscroll= new List<Transform>();
         Debug.Log(posvisual.Count);
@@ -94,7 +103,7 @@ public class Cementerio : MonoBehaviour, IPointerClickHandler
             {
                 GameObject posicion = posscroll[i].transform.GetChild(0).gameObject;
                 posicion.transform.SetParent(cemt.transform);
-                posicion.transform.localPosition = Vector3.zero;
+                posicion.transform.localPosition = new Vector3(posicion.transform.parent.position.x,posicion.transform.parent.position.y,posicion.transform.parent.position.z-1);
             }
         }
         cementerioscroll.SetActive(false);

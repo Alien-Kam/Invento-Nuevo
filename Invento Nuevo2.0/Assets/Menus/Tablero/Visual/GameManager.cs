@@ -41,16 +41,17 @@ public class GameManager : MonoBehaviour
         hand1 = new List<GameObject>();
         hand2 = new List<GameObject>();
 
+        terminojuego = false;
         tablero = new Tablero();
         funcionesTablero = new FuncionesTablero(tablero);
 
         //Esto busca al objeto en la escena 
-        GameObject deck1 =  GameObject.Find("Deck 1");
+        GameObject deck1 = GameObject.Find("Deck 1");
         GameObject deck2 = GameObject.Find("Deck 2");
 
         GameObject player1 = GameObject.Find("Player 1");
         GameObject player2 = GameObject.Find("Player 2");
-        
+
         posiciondeck1 = GameObject.Find("Posicion Deck 1");
         posiciondeck2 = GameObject.Find("Posicion Deck 2");
 
@@ -60,6 +61,12 @@ public class GameManager : MonoBehaviour
         cementerio = GameObject.FindGameObjectsWithTag("Cementerio");
         rondavisual = GameObject.Find("Controlador de Ronda").GetComponent<RondaVisual>();
         turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
+
+        //Crea las instancias
+        Player player3 = new Player(player1.GetComponent<PlayersVisual>().nameplayer, player1.GetComponent<PlayersVisual>().faccionplayer);
+        Player player4 = new Player(player2.GetComponent<PlayersVisual>().nameplayer, player2.GetComponent<PlayersVisual>().faccionplayer);
+        funcionesTablero.InicializarTablero(tablero);
+
         //Agrega y crea referencias a listas
         listdeck1 = deck1.GetComponent<Decks>().deck;
         listdeck2 = deck2.GetComponent<Decks>().deck;
@@ -73,6 +80,8 @@ public class GameManager : MonoBehaviour
         hands.Add(hand1);
         hands.Add(hand2);
 
+        playerlog.Add(player3);
+        playerlog.Add(player4);
 
         //Este le asigna posicion deck como padre del deck 
         deck1.transform.SetParent(posiciondeck1.transform);
@@ -86,32 +95,32 @@ public class GameManager : MonoBehaviour
         player1.transform.SetParent(seccion1.transform, false);
         player2.transform.SetParent(seccion2.transform, false);
 
-
-        //Crea las instancias y se las añado  la lista 
-        Player player3 = new Player(player1.GetComponent<PlayersVisual>().nameplayer, player1.GetComponent<PlayersVisual>().faccionplayer);
-        Player player4 = new Player(player2.GetComponent<PlayersVisual>().nameplayer, player2.GetComponent<PlayersVisual>().faccionplayer);
-
-        playerlog.Add(player3);
-        playerlog.Add(player4);
-
-        funcionesTablero.InicializarTablero(tablero);
-
-        // Hacer un metodo que se llame al incio del turno y pasarle las cosas a ese turno para inicializar las cosas
-    }
-
-    public void Start()
-    {
-        //Funciona
-        terminojuego = false;
-        
+        //Swuapea los decks
         for (int i = 0; i < listdeck1.Count; i++)
         {
             SwapValues(listdeck1);
             SwapValues(listdeck2);
         }
-        ControlJuego(listdeck1, listdeck2);
+
+        List<string> tags = new List<string>() { "Posiciones 1", "Posiciones 2" };
+        for (int i = 0; i < cementerio.Length; i++)
+        {
+            cementerio[i].GetComponent<Cementerio>().Posiciones(tags[i]);
+        }
+
     }
 
+    public void OnEnable()
+    {
+        rondavisual.InstanciarRondas(playerlog, decks, hands, cementerio);
+        turnos.InstanciarTurnos(playerlog);
+        rondavisual.IniciarRonda();
+    }
+    public void Start()
+    {
+    }
+
+    //Barajea los decks una sola vez para el inicio del juego 
     private void SwapValues(List<GameObject> deck)
     {
         int indexA = Random.Range(0, deck.Count);
@@ -120,26 +129,6 @@ public class GameManager : MonoBehaviour
         GameObject tempcard = deck[indexA];
         deck[indexA] = deck[indexB];
         deck[indexB] = tempcard;
-    }
-
-    //Este metodo controla el flujo del juego aunque este se cambiara ya que antes de iniciar un turno debo iniciar una ronda
-    public void ControlJuego(List<GameObject> listdeck1, List<GameObject> listdeck2)
-    {
-        PreparacionRonda(listdeck1, listdeck2);
-        turnos.InstanciarTurnos(playerlog);
-        rondavisual.IniciarRonda();
-
-        hand1 = hands[0];
-        hand2 = hands[1];
-    }
-
-    public void PreparacionRonda(List<GameObject> listdeck1, List<GameObject> listdeck2)
-    {
-        rondavisual.InstanciarRondas(playerlog);
-
-        //Este metodo da null porque las posiciones de las cartas se instancian en ronda visual y no en este
-        //rondavisual.IniciarRonda();
-
     }
 }
 

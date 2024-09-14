@@ -21,9 +21,12 @@ public class Turnos : MonoBehaviour
     public bool[] pasados;
     public int playerspasados;
     RondaVisual ronda;
+    Devolver devolver;
+    public bool inicioronda;
     // Start is called before the first frame update
     public void Start()
     {
+        inicioronda = false;
         termino = false;
         tiempo = 6f;
         playerspasados = 0;
@@ -52,7 +55,9 @@ public class Turnos : MonoBehaviour
 
     public void ReinicioTurnos(int current = 0)
     {
+        Debug.Log("Reinicio Ronda");
         termino = false;
+        inicioronda = true;
         turno.ReinicioTurno(current);
         pasados = turno.pasados;
         playerspasados = turno.jugadorespas;
@@ -65,6 +70,10 @@ public class Turnos : MonoBehaviour
         player = turno.BegingTurn(turno.pasados);
         StartCoroutine(ActivatePanel(panel, tiempo));
         textpanel.text = $"Es el turno de :  {player.nombreplayer}";
+        if(inicioronda && turno.current == 1)
+        {
+            inicioronda = false;
+        }
     }
 
     public void PasarTurno()

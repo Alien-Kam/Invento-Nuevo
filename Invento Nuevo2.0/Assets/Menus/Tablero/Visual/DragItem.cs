@@ -4,7 +4,8 @@ using UnityEngine;
 using Logica;
 using UnityEngine.EventSystems;
 using System;
-public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+using UnityEngine.UI;
+public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
   private GameObject _dragParent;
   private bool _isDropped = false;
@@ -20,6 +21,8 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   private CanvasGroup canvas;
   public bool ok;
   public bool cementerio;
+  private MostrarCartas displayManager;
+  Image cardSprite;
 
   public void Start()
   {
@@ -29,6 +32,7 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     canvas = _dragParent.GetComponent<CanvasGroup>();
     turnoactual = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
     control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
+    displayManager = FindObjectOfType<MostrarCartas>();
     card = gameObject;
   }
 
@@ -104,5 +108,25 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
       parentTransform = parentTransform.parent;
     }
     return null;
+  }
+
+  public void OnPointerEnter(PointerEventData eventData)
+  {
+    //Esto es para el 2do proyecto
+
+    /*Transform childTransform = transform.GetChild(0);
+    cardSprite = childTransform.GetComponent<Image>();
+    displayManager.ShowCardImage(cardSprite.sprite);*/
+
+    Valido();
+    if(!ok) return;
+
+    cardSprite = GetComponent<Image>();
+    displayManager.ShowCardImage(cardSprite.sprite);
+  }
+
+  public void OnPointerExit(PointerEventData eventData)
+  {
+    displayManager.HideCardImage();
   }
 }

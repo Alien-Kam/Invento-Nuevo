@@ -29,15 +29,16 @@ namespace Logica
     //El metodo de BegunnTurn cuando comienza una nueva ronda no siempre comienza por el primero ni el ganador
     //El problema esta en el current cuando uno termina un turno el current no se reinicia sino mas bien que cuando el otro jugador se hace false su pase pasa para este 
     //Una forma de resolverlo es que cuando se reinicie una ronda el current ta,bien se reinicie esto es provisional
-    public Player BegingTurn(bool[] pasados)
+    public Player BegingTurn(bool[] pasados, int current = -1)
     {
-      if (pasados[current])
+      if (current > -1) this.current = current;
+      if (pasados[this.current])
       {
         EndTurn();
       }
-      Debug.Log(current);
-      Debug.Log($"Estamos en la logica del juego y a quien le toca ahora es a {players[current].nombreplayer}");
-      return players[current];
+      Debug.Log(this.current);
+      Debug.Log($"Estamos en la logica del juego y a quien le toca ahora es a {players[this.current].nombreplayer}");
+      return players[this.current];
     }
 
     public void EndTurn()
@@ -50,9 +51,9 @@ namespace Logica
       current = (current + 1) % players.Count;
     }
 
-    public void ReinicioTurno(int current = 0)
+    public void ReinicioTurno()
     {
-      this.current = current;
+      current = 0;
       jugadorespas = 0;
       pasarTurno = false;
       habLider = true;

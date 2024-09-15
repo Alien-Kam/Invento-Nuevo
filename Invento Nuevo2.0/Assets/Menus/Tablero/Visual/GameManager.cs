@@ -29,7 +29,12 @@ public class GameManager : MonoBehaviour
     public List<GameObject> hand2;
     public GameObject posiciondeck1;
     public GameObject posiciondeck2;
+    public GameObject panel;
+    private Player winner;
+    private bool isPanelActive;
 
+    public GameObject winnerpanel;
+    public TMP_Text text;
     public void Awake()
     {
         // Inicializar las listas
@@ -116,8 +121,48 @@ public class GameManager : MonoBehaviour
         turnos.InstanciarTurnos(playerlog);
         rondavisual.IniciarRonda();
     }
-    public void Start()
+    public void Start() { }
+
+    public void Update()
     {
+        if (rondavisual.terminoronda && Termino())
+        {
+            Debug.Log("Termino Ronda");
+            TerminarJuego(); // TODO implementar ver el panel de final de juego
+        }
+        // Detecta si se presiona la tecla Enter
+        if (isPanelActive && Input.GetKeyDown(KeyCode.Return))
+        {
+            panel.SetActive(false); // Desactiva el panel
+            isPanelActive = false; // Actualiza el estado del panel
+        }
+    }
+
+    private Player GetWinner()
+    {
+        Player winner = null;
+        foreach (var item in playerlog)
+        {
+            if (winner == null || item.puntosronda > winner.puntosronda)
+            {
+                winner = item;
+            }
+        }
+        return winner;
+    }
+
+    private bool Termino()
+    {
+        winner = GetWinner();
+        int count = playerlog.Count(x => x.puntosronda == winner.puntosronda);
+
+        return count == 1 && winner.puntosronda > 1;
+    }
+
+    private void TerminarJuego()
+    {
+        winnerpanel.SetActive(true);
+        text.text = $"Felicidades eres el {winner.nombreplayer}";
     }
 
     //Barajea los decks una sola vez para el inicio del juego 

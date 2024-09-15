@@ -13,12 +13,13 @@ public class MostrarCartas : MonoBehaviour
         Color color = cardImage.color;
         color.a = 1;
         cardImage.color = color;
-        cardImage.gameObject.SetActive(true);
     }
 
     public void HideCardImage()
     {
-        cardImage.gameObject.SetActive(false);
+        Color color = cardImage.color;
+        color.a = 0;
+        cardImage.color = color;
     }
 }
 

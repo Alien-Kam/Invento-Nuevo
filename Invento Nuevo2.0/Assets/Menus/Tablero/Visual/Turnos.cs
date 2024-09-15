@@ -20,20 +20,20 @@ public class Turnos : MonoBehaviour
     public int current;
     public bool[] pasados;
     public int playerspasados;
-    RondaVisual ronda;
-    Devolver devolver;
     public bool inicioronda;
+    public List<CanvasGroup> sections;
+
+    RondaVisual ronda;
     // Start is called before the first frame update
     public void Start()
     {
-        inicioronda = false;
         termino = false;
         tiempo = 6f;
         playerspasados = 0;
         ronda = GameObject.Find("Controlador de Ronda").GetComponent<RondaVisual>();
     }
 
-   public void Update()
+    public void Update()
     {
         if (!ronda.terminoronda && termino)
         {
@@ -49,31 +49,27 @@ public class Turnos : MonoBehaviour
     public void InstanciarTurnos(List<Player> player)
     {
         turno = new Turno(player);
+        inicioronda = true;
         current = turno.current;
         pasados = new bool[player.Count];
     }
 
-    public void ReinicioTurnos(int current = 0)
+    public void ReinicioTurnos()
     {
         Debug.Log("Reinicio Ronda");
         termino = false;
-        inicioronda = true;
-        turno.ReinicioTurno(current);
+        turno.ReinicioTurno();
         pasados = turno.pasados;
         playerspasados = turno.jugadorespas;
-        this.current = turno.current;
+        current = turno.current;
     }
 
-    public void InicioTurno()
+    public void InicioTurno(int current = -1)
     {
         termino = false;
-        player = turno.BegingTurn(turno.pasados);
+        player = turno.BegingTurn(turno.pasados, current);
         StartCoroutine(ActivatePanel(panel, tiempo));
         textpanel.text = $"Es el turno de :  {player.nombreplayer}";
-        if(inicioronda && turno.current == 1)
-        {
-            inicioronda = false;
-        }
     }
 
     public void PasarTurno()

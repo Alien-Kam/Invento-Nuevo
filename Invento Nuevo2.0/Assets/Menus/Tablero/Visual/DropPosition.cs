@@ -33,10 +33,8 @@ public class DropPosition : MonoBehaviour, IDropHandler
     {
         int player = turnos.turno.current;
         newitem = eventData.pointerDrag;
-        bool okcard = newitem.GetComponent<DragItem>().ok;
-        Debug.Log(okcard);
 
-        if (newitem.GetComponent<DragItem>().move || !okcard)
+        if (newitem.GetComponent<DragItem>().move)
         {
             return;
         }
@@ -77,5 +75,4 @@ public class DropPosition : MonoBehaviour, IDropHandler
         tablero.PonerCartas(cardlog, (int)position.x, (int)position.y, turnos.player);
         turnos.termino = true;
     }
-
 }

@@ -42,7 +42,7 @@ public class RondaVisual : MonoBehaviour
     isPanelActive = false;
 
     //Instancias las variables
-   
+
     posiciones = new List<GameObject>();
 
     //Busca objetos de la escena
@@ -59,7 +59,7 @@ public class RondaVisual : MonoBehaviour
     //Agrecar cosas a las listas 
     posiciones.Add(posicion1);
     posiciones.Add(posicion2);
-    
+
   }
 
   // Update is called once per frame
@@ -80,32 +80,29 @@ public class RondaVisual : MonoBehaviour
     if (!control.terminojuego && terminoronda && !isPanelActive)
     {
       Debug.Log("Creo una nueva ronda");
-      InstanciarRondas(control.playerlog, control.decks, control.hands,control.cementerio);
+      // InstanciarRondas(control.playerlog, control.decks, control.hands,control.cementerio);
+      turnos.inicioronda = false;
       IniciarRonda();
     }
   }
 
 
   //Se llama al principio para crear una nueva ronda
-  public void InstanciarRondas(List<Player> player, List<List<GameObject>> decks, List<List<GameObject>> controlhands,GameObject[] cementerio)
+  public void InstanciarRondas(List<Player> player, List<List<GameObject>> decks, List<List<GameObject>> controlhands, GameObject[] cementerio)
   {
     rondas = new Rondas(player);
     listdecks = decks;
     hands = controlhands;
     cementerios = cementerio;
-
   }
 
   //Este es el inicio de toda ronda
   public void IniciarRonda()
   {
-    // Porqye esto devuelve null y abajo en el metodo de terminar una ronda si tiene un valor asignado 
-    //Creo que es porque en este momento au un turno no se haba instanciado tengo que arreglar eso 
-    // Ademas tengo que arreglar que cuando comience una ronda empiece el ganador
-    terminoronda = false;
-    CrearManos(listdecks, control.hands);
+    terminoronda = false; //Va para la logica 
+    CrearManos(listdecks, hands);
     turnos.ReinicioTurnos();
-    turnos.InicioTurno();
+    turnos.InicioTurno(rondas.GetIndexInicioRonda());
   }
 
   // Este asigna con que cartas jugara cada jugador
@@ -240,8 +237,8 @@ public class RondaVisual : MonoBehaviour
   //Asigna los puntos de las rondas
   public void AsignarPuntos()
   {
-    player = rondas.player;
-    rondas.PuntosRonda(player);
+    player = rondas.players;
+    rondas.PuntosRonda();
 
     for (int i = 0; i < puntosRonda.Count; i++)
     {

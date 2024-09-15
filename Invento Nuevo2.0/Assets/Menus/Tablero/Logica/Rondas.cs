@@ -16,38 +16,40 @@ namespace Logica
     public class Rondas
     {
         // Inicio de Ronda
-        public List<Player> player;
+        public List<Player> players;
 
         // Finalizar rondas 
         int maxpuntos;
         bool empate;
         int index;
+        int lastindex;
 
         public Rondas(List<Player> players)
         {
-            player = players;
+            this.players = players;
             maxpuntos = int.MinValue;
             empate = false;
             index = 0;
+            lastindex = index;
         }
 
-       /* public List<BaseCard> DistribucionCartas(List<BaseCard> deck, List<BaseCard> posicionescarta) // No hay Cartas Repetidas arreglar eso
-        {
-            List<BaseCard> hand = new List<BaseCard>();
-            for (int i = 0; i < posicionescarta.Count; i++)
-            {
-                if (posicionescarta[i] is not null)
-                {
-                    hand.Add(posicionescarta[i]);
-                    continue;
-                }
-                BaseCard card = deck[deck.Count - 1];
-                deck.RemoveAt(deck.Count - 1);
-                hand.Add(card);
-            }
+        /* public List<BaseCard> DistribucionCartas(List<BaseCard> deck, List<BaseCard> posicionescarta) // No hay Cartas Repetidas arreglar eso
+         {
+             List<BaseCard> hand = new List<BaseCard>();
+             for (int i = 0; i < posicionescarta.Count; i++)
+             {
+                 if (posicionescarta[i] is not null)
+                 {
+                     hand.Add(posicionescarta[i]);
+                     continue;
+                 }
+                 BaseCard card = deck[deck.Count - 1];
+                 deck.RemoveAt(deck.Count - 1);
+                 hand.Add(card);
+             }
 
-            return hand;
-        }*/
+             return hand;
+         }*/
 
         public void InsertarCarta(BaseCard card, List<BaseCard> deck)
         {
@@ -68,17 +70,20 @@ namespace Logica
             return RoboCarta(deck, index);
         }
 
-        public void PuntosRonda(List<Player> players)
+        public void PuntosRonda()
         {
+            int indexWinner = -1;
             for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].puntos > maxpuntos)
                 {
                     maxpuntos = players[i].puntos;
-                    index = i;
+                    indexWinner = i;
                 }
             }
 
+            lastindex = index;
+            index = indexWinner;
             players[index].puntosronda++;
 
             for (int j = 0; j < players.Count; j++)
@@ -97,6 +102,15 @@ namespace Logica
                 return null;
             }
             return players[index];
+        }
+
+        public int GetIndexInicioRonda()
+        {
+            if (empate)
+            {
+                return lastindex;
+            }
+            return index;
         }
 
         public void GanadorJuego(List<Player> players)
@@ -159,7 +173,7 @@ namespace Logica
         public List<BaseCard> CartasMano(int cantidadcart, List<BaseCard> hand, List<BaseCard> deck)
         {
             List<BaseCard> cartasinst = new List<BaseCard>();
-            for(int i = 0;  i < cantidadcart; i++)
+            for (int i = 0; i < cantidadcart; i++)
             {
                 if (deck.Count <= i) break;
                 hand.Add(deck[i]);

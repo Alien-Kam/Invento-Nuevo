@@ -35,6 +35,7 @@ public class RondaVisual : MonoBehaviour
   public bool isPanelActive;
   public List<GameObject> posicionesLider;
   public List<GameObject> decks;
+  public bool inicioronda;
   // Start is called before the first frame update
   public void Awake()
   {
@@ -81,7 +82,6 @@ public class RondaVisual : MonoBehaviour
     {
       Debug.Log("Creo una nueva ronda");
       // InstanciarRondas(control.playerlog, control.decks, control.hands,control.cementerio);
-      turnos.inicioronda = false;
       IniciarRonda();
     }
   }
@@ -101,6 +101,7 @@ public class RondaVisual : MonoBehaviour
   {
     terminoronda = false; //Va para la logica 
     CrearManos(listdecks, hands);
+    inicioronda = true;
     turnos.ReinicioTurnos();
     turnos.InicioTurno(rondas.GetIndexInicioRonda());
   }

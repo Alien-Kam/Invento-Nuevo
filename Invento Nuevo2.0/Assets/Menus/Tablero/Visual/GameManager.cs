@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     public void OnEnable()
     {
         rondavisual.InstanciarRondas(playerlog, decks, hands, cementerio);
-        turnos.InstanciarTurnos(playerlog);
+        turnos.InstanciarTurnos(playerlog, rondavisual);
         rondavisual.IniciarRonda();
     }
     public void Start() { }

@@ -19,7 +19,6 @@ namespace Logica
         public List<Player> players;
 
         // Finalizar rondas 
-        int maxpuntos;
         bool empate;
         int index;
         int lastindex;
@@ -27,7 +26,6 @@ namespace Logica
         public Rondas(List<Player> players)
         {
             this.players = players;
-            maxpuntos = int.MinValue;
             empate = false;
             index = 0;
             lastindex = index;
@@ -72,6 +70,7 @@ namespace Logica
 
         public void PuntosRonda()
         {
+            int maxpuntos = int.MinValue;
             int indexWinner = -1;
             for (int i = 0; i < players.Count; i++)
             {

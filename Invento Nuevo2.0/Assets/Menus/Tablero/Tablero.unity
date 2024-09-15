@@ -3555,6 +3555,7 @@ MonoBehaviour:
   - {fileID: 1973075368}
   - {fileID: 111943984}
   decks: []
+  inicioronda: 0
 --- !u!1 &323759719
 GameObject:
   m_ObjectHideFlags: 0
@@ -9193,12 +9194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1146263b3b9b28d4f9e9ee9db767b27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numeroCementerio: 0
   posicionestab: []
   cementerioscroll: {fileID: 1126045778}
   posvisual: []
-  posscroll: []
   cartas: []
-  numeroCementerio: 0
+  posscroll: []
 --- !u!1 &931278259
 GameObject:
   m_ObjectHideFlags: 0
@@ -19843,12 +19844,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1146263b3b9b28d4f9e9ee9db767b27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numeroCementerio: 1
   posicionestab: []
   cementerioscroll: {fileID: 1126045778}
   posvisual: []
-  posscroll: []
   cartas: []
-  numeroCementerio: 1
+  posscroll: []
 --- !u!1 &1938389209
 GameObject:
   m_ObjectHideFlags: 0

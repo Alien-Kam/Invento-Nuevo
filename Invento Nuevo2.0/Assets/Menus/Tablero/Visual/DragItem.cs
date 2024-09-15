@@ -7,49 +7,67 @@ using System;
 using UnityEngine.UI;
 public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-  private GameObject _dragParent;
+  //Logica
+  public BaseCard carta;
+  //Booleanos
+  private bool _dontmove;
+  public bool valido;
   private bool _isDropped;
   private bool _enableDrop;
-  private Vector3 _startingPosition;
-  private Transform _startingParent;
-  public bool move;
-  public BaseCard carta;
-  private CanvasGroup canvas;
-  private MostrarCartas displayManager;
-  Image cardSprite;
   private bool _inGame;
 
-  public void Start()
+  //GameObjects y sus cosas
+  private GameObject _dragParent;
+  Image cardSprite;
+
+  //Posiciones
+  private Vector3 _startingPosition;
+  private Transform _startingParent;
+
+  //Canvas Group
+  private CanvasGroup canvas;
+
+  //Clases
+  private MostrarCartas displayManager;
+  private Turnos turnoactual;
+  private GameManager controlador;
+
+    public void Start()
   {
-    move = false;
+    _dontmove = false;
     _isDropped = false;
     _enableDrop = false;
     _dragParent = GameObject.Find("DragParent");
     canvas = _dragParent.GetComponent<CanvasGroup>();
     displayManager = FindObjectOfType<MostrarCartas>();
+    turnoactual = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
+    controlador = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
   }
 
+  // Cosas del OnDrag
   public void OnBeginDrag(PointerEventData eventData)
   {
-    if (move) return;
+    Valido();
+    if (!valido) return;
     _startingPosition = transform.position;
     _startingParent = transform.parent;
     transform.SetParent(_dragParent.transform);
     canvas.blocksRaycasts = false;
   }
+
   public void OnDrag(PointerEventData eventData)
   {
-    if (move) return;
+    if (!valido) return;
     transform.position = eventData.position;
   }
 
   public void OnEndDrag(PointerEventData eventData)
   {
     canvas.blocksRaycasts = true;
-    if (move) return;
+    if (!valido) return;
     if (_isDropped)
     {
-      move = true;
+      _dontmove = true;
       return;
     }
 
@@ -72,20 +90,7 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     return _enableDrop;
   }
 
-  public GameObject FindParentWithTag(GameObject child, string tag)
-  {
-    Transform parentTransform = child.transform.parent;
-    while (parentTransform != null)
-    {
-      if (parentTransform.CompareTag(tag))
-      {
-        return parentTransform.gameObject;
-      }
-      parentTransform = parentTransform.parent;
-    }
-    return null;
-  }
-
+  //Estos son los metodos para mostrar una carta en el panel de mostrar cartas
   public void OnPointerEnter(PointerEventData eventData)
   {
     //Esto es para el 2do proyecto
@@ -106,5 +111,35 @@ public class DragItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
   public void SetInGame(bool inGame)
   {
     _inGame = inGame;
+  }
+
+
+  //Cosas que funcionaraban
+  public void Valido()
+  {
+    GameObject player = controlador.players[turnoactual.turno.GetCurrent()];
+    valido =  !_dontmove && GetPathParent(gameObject, player);
+  }
+  public bool GetPathParent(GameObject newitem, GameObject player)
+  {
+    string tags = "Seccion";
+    GameObject parent1 = FindParentWithTag(newitem, tags);
+    GameObject parent2 = FindParentWithTag(player, tags);
+
+    bool ok1 = parent1.Equals(parent2);
+    return ok1;
+  }
+  public GameObject FindParentWithTag(GameObject child, string tag)
+  {
+    Transform parentTransform = child.transform.parent;
+    while (parentTransform != null)
+    {
+      if (parentTransform.CompareTag(tag))
+      {
+        return parentTransform.gameObject;
+      }
+      parentTransform = parentTransform.parent;
+    }
+    return null;
   }
 }

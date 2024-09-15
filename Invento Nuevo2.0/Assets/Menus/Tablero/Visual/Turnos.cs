@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.Mathematics;
 
 // Kam si funciona no lo toques 
 public class Turnos : MonoBehaviour
@@ -20,21 +21,30 @@ public class Turnos : MonoBehaviour
     public int current;
     public bool[] pasados;
     public int playerspasados;
-    public bool inicioronda;
     public List<CanvasGroup> sections;
-
     RondaVisual ronda;
+    public bool iniciorondaturno;
     // Start is called before the first frame update
-    public void Start()
+
+    public void Awake()
     {
+        ronda = GameObject.Find("Controlador de Ronda").GetComponent<RondaVisual>();
+    }
+    public void Start()
+    {   
         termino = false;
         tiempo = 6f;
         playerspasados = 0;
-        ronda = GameObject.Find("Controlador de Ronda").GetComponent<RondaVisual>();
     }
 
     public void Update()
     {
+        if(!ronda.inicioronda && turno.GetCurrent() == ronda.listdecks.Count)
+        {
+            Debug.Log("Entro Aqui");
+            ronda.inicioronda = false;
+            iniciorondaturno = ronda.inicioronda;
+        }
         if (!ronda.terminoronda && termino)
         {
             TerminarTurno();
@@ -44,30 +54,32 @@ public class Turnos : MonoBehaviour
         {
             InicioTurno();
         }
+
     }
 
-    public void InstanciarTurnos(List<Player> player)
+    public void InstanciarTurnos(List<Player> player, RondaVisual rondaVisual)
     {
         turno = new Turno(player);
-        inicioronda = true;
-        current = turno.current;
+        ronda = rondaVisual;
+        current = turno.GetCurrent();
         pasados = new bool[player.Count];
     }
 
     public void ReinicioTurnos()
     {
-        Debug.Log("Reinicio Ronda");
         termino = false;
+        iniciorondaturno = ronda.inicioronda;
         turno.ReinicioTurno();
         pasados = turno.pasados;
         playerspasados = turno.jugadorespas;
-        current = turno.current;
+        current = turno.GetCurrent();
     }
 
     public void InicioTurno(int current = -1)
     {
         termino = false;
         player = turno.BegingTurn(turno.pasados, current);
+        //sections[turno.GetCurrent()].blocksRaycasts = true;
         StartCoroutine(ActivatePanel(panel, tiempo));
         textpanel.text = $"Es el turno de :  {player.nombreplayer}";
     }
@@ -75,7 +87,7 @@ public class Turnos : MonoBehaviour
     public void PasarTurno()
     {
         // hacer un metodo en la logica  con todo esto 
-        current = turno.current;
+        current = turno.GetCurrent();
         pasados[current] = true;
         turno.pasados[current] = true;
         playerspasados++;
@@ -84,7 +96,7 @@ public class Turnos : MonoBehaviour
 
     public void TerminarTurno()
     {
-        textospunt[turno.current].text = $"{player.puntos}";
+        textospunt[turno.GetCurrent()].text = $"{player.puntos}";
         turno.EndTurn();
     }
 

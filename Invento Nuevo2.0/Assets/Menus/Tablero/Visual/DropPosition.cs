@@ -34,11 +34,6 @@ public class DropPosition : MonoBehaviour, IDropHandler
         int player = turnos.turno.current;
         newitem = eventData.pointerDrag;
 
-        if (newitem.GetComponent<DragItem>().move)
-        {
-            return;
-        }
-
         card = newitem.GetComponent<Cartas>();
         cardlog = card.CrearCarta();
 
@@ -60,7 +55,6 @@ public class DropPosition : MonoBehaviour, IDropHandler
         else
         {
             bool valido = tablero.IsValido((uint)clasificacion, card.clasificacion, player, seccion);
-            Debug.Log(valido);
 
             if (!valido || _item)
             {

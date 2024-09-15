@@ -22,12 +22,13 @@ public class DeckPositions : MonoBehaviour, IPointerClickHandler
     }
 
     // Update is called once per frame
-    public void Update() { }
+    public void Update()
+    { 
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        int current = turno.turno.current;
-        GameObject gameObject = turno.inicioronda ? panel : Text;
+        GameObject gameObject = turno.iniciorondaturno ? panel : Text;
         gameObject.SetActive(true);
     }
 }

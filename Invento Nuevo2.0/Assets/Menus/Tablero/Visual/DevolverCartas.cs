@@ -10,7 +10,6 @@ public class DevolverCartas : MonoBehaviour, IDropHandler
     // Start is called before the first frame update
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Entro");
         if (_item != null)
         {
             return;

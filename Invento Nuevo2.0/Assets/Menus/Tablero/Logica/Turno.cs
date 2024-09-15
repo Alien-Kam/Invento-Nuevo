@@ -36,8 +36,6 @@ namespace Logica
       {
         EndTurn();
       }
-      Debug.Log(this.current);
-      Debug.Log($"Estamos en la logica del juego y a quien le toca ahora es a {players[this.current].nombreplayer}");
       return players[this.current];
     }
 
@@ -58,6 +56,11 @@ namespace Logica
       pasarTurno = false;
       habLider = true;
       pasados = new bool[players.Count];
+    }
+
+    public int GetCurrent()
+    {
+      return current;
     }
   }
 }

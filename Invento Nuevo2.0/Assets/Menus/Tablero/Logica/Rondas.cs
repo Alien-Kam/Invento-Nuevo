@@ -22,6 +22,7 @@ namespace Logica
         bool empate;
         int index;
         int lastindex;
+        public bool[] pasados;
 
         public Rondas(List<Player> players)
         {
@@ -29,6 +30,7 @@ namespace Logica
             empate = false;
             index = 0;
             lastindex = index;
+            pasados = new bool[players.Count];
         }
 
         /* public List<BaseCard> DistribucionCartas(List<BaseCard> deck, List<BaseCard> posicionescarta) // No hay Cartas Repetidas arreglar eso
@@ -94,7 +96,7 @@ namespace Logica
                 }
             }
         }
-        public Player GanadorRonda(List<Player> players)
+        public Player GanadorRonda()
         {
             if (empate)
             {
@@ -112,7 +114,7 @@ namespace Logica
             return index;
         }
 
-        public void GanadorJuego(List<Player> players)
+        public void GanadorJuego()
         {
             int maxrondas = int.MinValue;
             for (int i = 0; i < players.Count; i++)
@@ -125,7 +127,7 @@ namespace Logica
         }
 
         //Esto borra a los pasados 
-        public void BorrarPasados(bool[] pasados)
+        public void BorrarPasados()
         {
             for (int i = 0; i < pasados.Length; i++)
             {
@@ -133,41 +135,6 @@ namespace Logica
                 Debug.Log(pasados[i]);
             }
         }
-
-        //Esto  se va a cambiar y si lo hhacemos por una cola :)
-        public void SwapWinner(Player player, List<Player> players)
-        {
-            int index = 0;
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (players.Equals(players[i]))
-                {
-                    index = i;
-                }
-            }
-            if (index == 0)
-            {
-                return;
-            }
-            Player playerswap = players[index];
-            Player playerswap2 = players[0];
-            players[index] = playerswap2;
-            players[0] = playerswap;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public List<BaseCard> CartasMano(int cantidadcart, List<BaseCard> hand, List<BaseCard> deck)
         {

@@ -2,28 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using Logica;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System.Linq;
-using Unity.VisualScripting;
-using Unity.Mathematics;
 
 // Kam si funciona no lo toques 
 public class Turnos : MonoBehaviour
 {
-    public Turno turno;
-    public bool termino;
-    public GameObject panel;
-    public TMP_Text textpanel;
-    public float tiempo;
+    //Variables de la logica
     public Player player;
-    public List<TMP_Text> textospunt;
-    public int current;
-    public bool[] pasados;
-    public int playerspasados;
-    public List<CanvasGroup> sections;
-    RondaVisual ronda;
+    public Turno turno;
+
+    //Booleanos
+    public bool termino;
     public bool iniciorondaturno;
+    public bool[] pasados;
+
+    //Objetos
+    public GameObject panel;
+
+    //Clases
+    RondaVisual ronda;
+    
+    //Textos
+    public TMP_Text textpanel;
+    public List<TMP_Text> textospunt;
+
+    //Numeros
+    public int current;
+    public int playerspasados;
+    public float tiempo;
+    RondaVisual ronda;
     // Start is called before the first frame update
 
     public void Awake()
@@ -64,6 +71,7 @@ public class Turnos : MonoBehaviour
         current = turno.GetCurrent();
         pasados = new bool[player.Count];
     }
+
 
     public void ReinicioTurnos()
     {

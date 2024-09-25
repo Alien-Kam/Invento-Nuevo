@@ -20,22 +20,30 @@ public class RondaVisual : MonoBehaviour
   int currentplayer => turnos.turno.current;
 
   //Variables del visual
-  Turnos turnos;
+  //GameObjects
+  public GameObject panel;
+  GameObject[] cementerios;
   public List<List<GameObject>> listdecks;
   List<List<GameObject>> hands;
   List<GameObject> posiciones;
-  public List<TMP_Text> puntosRonda;
-  public List<TMP_Text> puntos;
-  public TMP_Text textodeganador;
-  public GameObject panel;
-  GameManager control;
-  GameObject[] cementerios;
-  List<string> tags;
-  float tiempo;
-  public bool isPanelActive;
   public List<GameObject> posicionesLider;
   public List<GameObject> decks;
+
+  //Booleanos
+  public bool isPanelActive;
   public bool inicioronda;
+  public bool terminojuego;
+
+  //Instancias de clases
+  Turnos turnos;
+  GameManager control;
+
+  //Textos
+  public TMP_Text textodeganador;
+  public List<TMP_Text> puntosRonda;
+  public List<TMP_Text> puntos;
+  List<string> tags;
+  float tiempo;
   // Start is called before the first frame update
   public void Awake()
   {
@@ -48,7 +56,6 @@ public class RondaVisual : MonoBehaviour
 
     //Busca objetos de la escena
     posiciones = new List<GameObject>();
-    control = GameObject.Find("Controlador de juego ").GetComponent<GameManager>();
     turnos = GameObject.Find("Controlador de Turno").GetComponent<Turnos>();
     decks = GameObject.FindGameObjectsWithTag("Deck").ToList();
 
@@ -66,7 +73,7 @@ public class RondaVisual : MonoBehaviour
   // Update is called once per frame
   public void Update()
   {
-    if (turnos.playerspasados == control.playerlog.Count)
+    if (turnos.playerspasados == listdecks.Count)
     {
       Debug.Log("Termino Ronda");
       TerminarRonda();
@@ -78,7 +85,7 @@ public class RondaVisual : MonoBehaviour
       isPanelActive = false; // Actualiza el estado del panel
       LimpiarCampo();
     }
-    if (!control.terminojuego && terminoronda && !isPanelActive)
+    if (!terminojuego && terminoronda && !isPanelActive)
     {
       Debug.Log("Creo una nueva ronda");
       // InstanciarRondas(control.playerlog, control.decks, control.hands,control.cementerio);
@@ -88,12 +95,13 @@ public class RondaVisual : MonoBehaviour
 
 
   //Se llama al principio para crear una nueva ronda
-  public void InstanciarRondas(List<Player> player, List<List<GameObject>> decks, List<List<GameObject>> controlhands, GameObject[] cementerio)
+  public void InstanciarRondas(List<Player> player, List<List<GameObject>> decks, List<List<GameObject>> controlhands, GameObject[] cementerio, bool terminojuego)
   {
     rondas = new Rondas(player);
     listdecks = decks;
     hands = controlhands;
     cementerios = cementerio;
+    this.terminojuego = terminojuego;
   }
 
   //Este es el inicio de toda ronda
@@ -232,7 +240,7 @@ public class RondaVisual : MonoBehaviour
       turnos.pasados[i] = false;
     }
     // Hasta ahora funciona
-    rondas.BorrarPasados(turnos.turno.pasados);
+    rondas.BorrarPasados();
   }
 
   //Asigna los puntos de las rondas
@@ -250,7 +258,7 @@ public class RondaVisual : MonoBehaviour
   //Decide un ganador de la ronda
   public void GanadorRonda()
   {
-    Player playerwin = rondas.GanadorRonda(player);
+    Player playerwin = rondas.GanadorRonda();
 
     MostrarGanador();
 

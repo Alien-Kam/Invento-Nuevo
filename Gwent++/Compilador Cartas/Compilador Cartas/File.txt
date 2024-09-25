@@ -1,0 +1,9 @@
+
+ card :
+        {
+            Type: "Oro",
+            Name: "Beluga",
+            Faction: "Northern Realms",
+            Power: 10,
+            Range: ["Melee", "Ranged"],
+        }

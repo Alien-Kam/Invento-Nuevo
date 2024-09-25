@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public List<Player> playerlog;
     public Tablero tablero;
     public FuncionesTablero funcionesTablero;
+
+    public Rondas rondalogica;
+    Turnos turnologica;
     public bool terminojuego;
 
     // Cosas Visuales
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void OnEnable()
     {
-        rondavisual.InstanciarRondas(playerlog, decks, hands, cementerio);
+        rondavisual.InstanciarRondas(playerlog, decks, hands, cementerio, terminojuego);
         turnos.InstanciarTurnos(playerlog, rondavisual);
         rondavisual.IniciarRonda();
     }
@@ -174,6 +177,13 @@ public class GameManager : MonoBehaviour
         GameObject tempcard = deck[indexA];
         deck[indexA] = deck[indexB];
         deck[indexB] = tempcard;
+    }
+
+
+
+    public void InstanciarLogica()
+    {
+        rondalogica = new Rondas(playerlog);
     }
 }
 

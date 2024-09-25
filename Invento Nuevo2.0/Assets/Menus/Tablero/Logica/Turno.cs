@@ -32,10 +32,11 @@ namespace Logica
     public Player BegingTurn(bool[] pasados, int current = -1)
     {
       if (current > -1) this.current = current;
-      if (pasados[this.current])
+      while(pasados[this.current])
       {
         EndTurn();
       }
+
       return players[this.current];
     }
 

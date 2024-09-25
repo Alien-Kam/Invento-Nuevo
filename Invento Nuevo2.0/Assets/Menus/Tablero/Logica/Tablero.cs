@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace Logica
       public BaseCard[] climas;
       public bool[] climasbool;
       public List<BaseCard> cementerio;
-
+ 
       public Tablero()
       {
          tablero = new MonsterCard[6, 5];

@@ -78,6 +78,15 @@ public interface IContext
     List<IContextCard> HandOfPlayer(int player);
 }
 
+public interface IBlockContext
+{
+    IDictionary<string, (VarType type, object value)> LocalVar { get; }
+    IDictionary<string, (VarType type, object value)> GlobalVar { get; }
+
+    IContext context { get; }
+    IEnumerable<IContextCard> targets { get; }
+}
+
 #region IContextList
 
 // public interface IContextList<T>

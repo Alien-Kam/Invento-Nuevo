@@ -84,7 +84,18 @@ IToken[] Lexer(string[] words, Dictionary<string, TokenType> valuePairs)
                 type = TokenType.Number;
             }
         }
+
         tokens.Add(new Token(word, type));
+
+        if (type != TokenType.Marks) continue;
+
+        string name = "";
+        while (words[i + 1] != "\"" && i < words.Length - 1)
+        {
+            name += words[++i];
+        }
+        tokens.Add(new Token(name, TokenType.String));
+        tokens.Add(new Token(words[++i], TokenType.Marks));
     }
 
     tokens.Add(new Token("$", TokenType.EOF));

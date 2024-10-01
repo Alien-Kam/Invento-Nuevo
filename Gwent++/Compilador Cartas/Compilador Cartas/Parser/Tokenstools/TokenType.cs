@@ -196,6 +196,7 @@ public enum TokenType
     /// </summary>
     PowEqual,
     Comment,
-    Marks
+    Marks,
+    String
 }
 

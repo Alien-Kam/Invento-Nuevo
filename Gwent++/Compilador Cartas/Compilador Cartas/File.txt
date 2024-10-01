@@ -1,9 +1,21 @@
 
- card :
-        {
-            Type: "Oro",
-            Name: "Beluga",
-            Faction: "Northern Realms",
-            Power: 10,
-            Range: ["Melee", "Ranged"],
+effect: {
+    Name: "DrawAndBoost",
+    Params: {
+
+    },
+    Action: (targets, context) => {
+        topCard = (4 + 5) * 7 / (4 + 9) - 10;
+        while (2 > 1 || 5 < 0 && 6 <= 3 || 7 >= 8) {
+            if (!(4 == 4)) {
+                topCard = 2;
+            }
+            if (2 != 3) {
+                topCard = 1;
+            }
+            if (1 == 2) {
+                topCard = 3;
+            }
         }
+    }
+}

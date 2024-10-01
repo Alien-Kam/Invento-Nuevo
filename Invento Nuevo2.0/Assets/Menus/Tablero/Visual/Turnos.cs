@@ -30,7 +30,6 @@ public class Turnos : MonoBehaviour
     public int current;
     public int playerspasados;
     public float tiempo;
-    RondaVisual ronda;
     // Start is called before the first frame update
 
     public void Awake()
@@ -64,19 +63,18 @@ public class Turnos : MonoBehaviour
 
     }
 
-    public void InstanciarTurnos(List<Player> player, RondaVisual rondaVisual)
+    public void InstanciarTurnos(List<Player> player)
     {
         turno = new Turno(player);
-        ronda = rondaVisual;
         current = turno.GetCurrent();
         pasados = new bool[player.Count];
     }
 
 
-    public void ReinicioTurnos()
+    public void ReinicioTurnos(RondaVisual rondaVisual)
     {
         termino = false;
-        iniciorondaturno = ronda.inicioronda;
+        iniciorondaturno = rondaVisual.inicioronda;
         turno.ReinicioTurno();
         pasados = turno.pasados;
         playerspasados = turno.jugadorespas;

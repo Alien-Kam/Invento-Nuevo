@@ -8,5 +8,6 @@ public enum VarType
 {
     Int,
     Bool,
-    Str
+    Str,
+    Card
 }

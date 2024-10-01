@@ -110,7 +110,7 @@ public class RondaVisual : MonoBehaviour
     terminoronda = false; //Va para la logica 
     CrearManos(listdecks, hands);
     inicioronda = true;
-    turnos.ReinicioTurnos();
+    turnos.ReinicioTurnos(GetComponent<RondaVisual>());
     turnos.InicioTurno(rondas.GetIndexInicioRonda());
   }
 

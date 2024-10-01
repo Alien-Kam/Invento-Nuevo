@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using System.Linq;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class GameManager : MonoBehaviour
     public FuncionesTablero funcionesTablero;
 
     public Rondas rondalogica;
-    Turnos turnologica;
     public bool terminojuego;
 
     // Cosas Visuales
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         player1.transform.SetParent(seccion1.transform, false);
         player2.transform.SetParent(seccion2.transform, false);
 
-        //Swuapea los decks
+        //Swapea los decks
         for (int i = 0; i < listdeck1.Count; i++)
         {
             SwapValues(listdeck1);
@@ -118,20 +118,23 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Hace las instancias de cada cosa antes de comenzar el juego y le pasa la informacion a la parte logica
     public void OnEnable()
     {
         rondavisual.InstanciarRondas(playerlog, decks, hands, cementerio, terminojuego);
-        turnos.InstanciarTurnos(playerlog, rondavisual);
+        turnos.InstanciarTurnos(playerlog);
         rondavisual.IniciarRonda();
     }
     public void Start() { }
 
+    //Pregunta constantemente si el juego termino
     public void Update()
     {
         if (rondavisual.terminoronda && Termino())
         {
             Debug.Log("Termino Ronda");
             TerminarJuego(); // TODO implementar ver el panel de final de juego
+            SceneManager.LoadScene(4);
         }
         // Detecta si se presiona la tecla Enter
         if (isPanelActive && Input.GetKeyDown(KeyCode.Return))
@@ -168,7 +171,7 @@ public class GameManager : MonoBehaviour
         text.text = $"Felicidades eres el {winner.nombreplayer}";
     }
 
-    //Barajea los decks una sola vez para el inicio del juego 
+
     private void SwapValues(List<GameObject> deck)
     {
         int indexA = Random.Range(0, deck.Count);

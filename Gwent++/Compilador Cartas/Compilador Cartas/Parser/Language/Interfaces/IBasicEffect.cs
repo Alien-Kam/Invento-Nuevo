@@ -19,7 +19,7 @@ public interface IEffectDef
     /// <summary>
     /// La acción del efecto
     /// </summary>
-    Action<IEnumerable<IContextCard>, IContext>? Action { get; }
+    Action<IEnumerable<IContextCard>, IContext, InputParams[]>? Action { get; }
 }
 
 /// <summary>
